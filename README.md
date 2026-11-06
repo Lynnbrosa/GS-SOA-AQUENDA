@@ -140,7 +140,7 @@ app/
   cli.py            sincronização pela linha de comando (timer da VM)
 scripts/            habilitacoes_cnes.py: lê o arquivo oficial de habilitações do CNES (DATASUS)
 alembic/            env.py (lê DATABASE_URL) e versions/
-tests/              102 testes pytest + respostas gravadas em tests/fixtures
+tests/              106 testes pytest + respostas gravadas em tests/fixtures
 ```
 
 ```
@@ -159,9 +159,9 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 |---|---|---|
 | **Estruturação do domínio** | 3,0 | `app/domain`. `Vaga.criar` é a única porta de entrada: limpa HTML, recusa link que não é http(s) (ex.: `javascript:`), corrige salário invertido e decide se a vaga é afirmativa. A regra de vaga afirmativa (`domain/afirmativa.py`) exige que o anúncio cite o público LGBTQIAPN+ ("afirmativa para PCD" não conta), usa fronteira de palavra para não confundir "trans" com "transporte" e guarda o termo encontrado. `Municipio` confere a UF pelo código IBGE; `codigo_municipio_cnes` converte para o código de 6 dígitos do DATASUS. `EstabelecimentoCnes` não guarda e-mail e preserva as habilitações da curadoria quando o CNES atualiza. `cache_valido` e `Sincronizacao` decidem quando chamar uma fonte. Repositórios e fontes são contratos (`Protocol`) que a infraestrutura implementa; a aplicação recebe tudo por injeção (`app/api/deps.py`). |
 | **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL funciona sem mudar código). Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
-| **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação e retrato do CNES. `0003` **corrige dados** já publicados: o HC-FMUSP passa de 30.02 para 30.01 e entra o Instituto de Psiquiatria, conferidos na Portaria 2.803/2013. Todas com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
+| **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação e retrato do CNES. `0003` e `0004` **corrigem dados** já publicados: primeiro pela Portaria 2.803/2013, depois pelo arquivo oficial de habilitações do CNES (9 habilitações em 6 serviços de SP, com a portaria de cada uma). Todas com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
 | **Documentação automática** | 1,5 | Swagger em `/docs` e ReDoc em `/redoc`, com descrição do serviço, 3 grupos de rotas, resumo e descrição por endpoint, exemplos nos parâmetros, descrição dos campos nos schemas e respostas de erro documentadas como `application/problem+json` (o 422 padrão do FastAPI foi trocado pelo 400 que a API realmente devolve). |
-| **Testes automatizados** | 1,0 | 102 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
+| **Testes automatizados** | 1,0 | 106 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
 
 ## Fontes, cache e o que acontece quando algo cai
 
@@ -182,14 +182,20 @@ A API aberta do CNES não filtra por habilitação. A lista fica na tabela `habi
 | 30.02 | Ambulatorial: acompanhamento clínico, pré e pós-operatório e **hormonioterapia** |
 | 30.03 | Hospitalar: cirurgias e acompanhamento pré e pós-operatório |
 
-Em São Paulo (capital), conferidos no texto da [Portaria 2.803/2013](https://bvsms.saude.gov.br/bvs/saudelegis/gm/2013/prt2803_19_11_2013.html), art. 9º:
+A lista vem do **arquivo oficial de habilitações do CNES** (`HBSP2609.dbc`, competência 09/2026, FTP do DATASUS), lido em 06/11/2026 com `scripts/habilitacoes_cnes.py`. Cada linha guarda a portaria de origem:
 
-| CNES | Estabelecimento | Habilitação |
-|---|---|---|
-| 2078015 | Hospital das Clínicas da FMUSP | 30.01 |
-| 2812703 | HCFMUSP, Instituto de Psiquiatria | 30.01 |
+| CNES | Estabelecimento | Município | Habilitações | Portaria |
+|---|---|---|---|---|
+| 2078015 | Hospital das Clínicas da FMUSP | São Paulo | 30.01 · 30.02 · 30.03 | PT GM 2.736/2014 · GM 3126/2016 |
+| 2077957 | Centro de Referência e Treinamento DST/Aids | São Paulo | 30.02 | PT GM 3231/2016 |
+| 2079798 | Hospital das Clínicas da Unicamp | Campinas | 30.02 · 30.03 | 9352 e 9358/GM/MS/2025 |
+| 2097036 | Ambulatório de Doenças Crônicas Transmissíveis | São José do Rio Preto | 30.02 | 376/GM/MS/2023 |
+| 6487173 | Centro Esp. de Doenças Infectocontagiosas e IST/Aids (CEI) | Hortolândia | 30.02 | GM/MS 10120/2025 |
+| 6682774 | Centro de Testagem e Aconselhamento (CTA) | Bauru | 30.02 | 9349/GM/MS/2025 |
 
-Habilitações publicadas depois de 2013 (o CRT DST/Aids-SP, por exemplo, aparece em notícias como habilitado no ambulatorial, mas a portaria não foi localizada) vêm do **arquivo oficial de habilitações do CNES** no FTP do DATASUS. O script abaixo lê esse arquivo e precisa rodar numa máquina no Brasil, porque o DATASUS recusa conexões de fora:
+O Instituto de Psiquiatria do HC (2812703), habilitado em 30.01 pela [Portaria 2.803/2013](https://bvsms.saude.gov.br/bvs/saudelegis/gm/2013/prt2803_19_11_2013.html), não aparece mais no arquivo e saiu da lista (continua na base, visível com `todas=true`).
+
+Para atualizar quando sair uma competência nova, rode o script numa máquina no Brasil (o DATASUS recusa conexões de fora) e transforme o resultado numa nova migração de dados:
 
 ```bash
 pip install -r scripts/requirements-habilitacoes.txt
@@ -198,8 +204,6 @@ pip install -r scripts/requirements-habilitacoes.txt
 ```bash
 python scripts/habilitacoes_cnes.py --uf SP
 ```
-
-Ele imprime cada estabelecimento com o código, a portaria e o nome no CNES, e grava `scripts/saida/habilitacoes_SP_<AAMM>.json`. O resultado entra como uma nova migração de dados.
 
 ## Decisões de segurança e privacidade
 
@@ -217,7 +221,7 @@ Sincronização rodada contra as fontes de verdade, num banco novo, com a API no
 | Fonte | Resultado |
 |---|---|
 | Gupy | **35 vagas reais** (37 respostas, 2 repetidas entre termos), 33 de cara classificadas como afirmativas. As 2 restantes eram "Vaga afirmativa para mulheres (cis e trans)", e a regra foi ajustada para contá-las. 25 em SP; o link de candidatura de uma delas foi aberto e respondeu 200. |
-| CNES | HC-FMUSP atualizado pela API de dados abertos. |
+| CNES | Os 6 serviços habilitados em SP atualizados pela API de dados abertos; a lista de habilitações saiu do arquivo oficial do DATASUS, lido numa máquina no Brasil. |
 | Adzuna | **50 vagas reais** em São Paulo (de 951 encontradas), **34 afirmativas** LGBTQIAPN+. As 16 restantes (Carrefour, telemarketing, "Trans. Financeiras") ficaram corretamente fora do filtro. Usou 2 chamadas da cota. Com chave inválida a API responde 401, tratado como `falha`. |
 | IBGE | **645 municípios de SP**, todos os do estado, numa máquina Windows no Brasil (Python + venv, `python -m app.cli sincronizar --fonte ibge --forcar`). No servidor de testes, fora do Brasil, o IBGE derruba a conexão: a API registrou `falha` e seguiu respondendo, com a leitura em 0,02 s enquanto a sincronização esperava o IBGE. |
 

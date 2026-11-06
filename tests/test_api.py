@@ -102,15 +102,31 @@ def test_estabelecimentos_do_municipio_com_habilitacao(client):
     corpo = client.get("/api/municipios/3550308/estabelecimentos").json()
     assert corpo["municipio"]["nome"] == "São Paulo"
     assert corpo["habilitacoes"] == ["30.01", "30.02", "30.03"]
-    assert {e["codigo_cnes"]: e["habilitacoes"] for e in corpo["itens"]} == {2078015: ["30.01"], 2812703: ["30.01"]}
+    assert {e["codigo_cnes"]: e["habilitacoes"] for e in corpo["itens"]} == {
+        2078015: ["30.01", "30.02", "30.03"],  # HC-FMUSP
+        2077957: ["30.02"],  # CRT DST/Aids
+    }
     assert all(e["fonte"].startswith("CNES/DATASUS") for e in corpo["itens"])
 
-    so_ambulatorial = client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": "30.02"}).json()
-    assert (so_ambulatorial["habilitacoes"], so_ambulatorial["total"]) == (["30.02"], 0)
+    cirurgia = client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": "30.03"}).json()
+    assert (cirurgia["habilitacoes"], [e["codigo_cnes"] for e in cirurgia["itens"]]) == (["30.03"], [2078015])
     todas = client.get("/api/municipios/3550308/estabelecimentos", params={"todas": "true"}).json()
-    assert (todas["habilitacoes"], todas["total"]) == (None, 2)
+    assert (todas["habilitacoes"], todas["total"]) == (None, 3), "o IPq continua na base, sem habilitação"
     invalida = client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": "99.99"})
     assert invalida.status_code == 400 and "30.01" in invalida.json()["detail"]
+
+
+@pytest.mark.parametrize("codigo_ibge, municipio, cnes", [
+    (3509502, "Campinas", 2079798),
+    (3549805, "São José do Rio Preto", 2097036),
+    (3519071, "Hortolândia", 6487173),
+    (3506003, "Bauru", 6682774),
+])
+def test_servicos_habilitados_no_interior(client, codigo_ibge, municipio, cnes):
+    corpo = client.get(f"/api/municipios/{codigo_ibge}/estabelecimentos").json()
+    assert corpo["municipio"]["nome"] == municipio
+    assert [e["codigo_cnes"] for e in corpo["itens"]] == [cnes]
+    assert "30.02" in corpo["itens"][0]["habilitacoes"]
 
 
 def test_municipio_sem_dados_responde_lista_vazia_e_codigo_errado_400(client):

@@ -2,7 +2,7 @@
 
 import httpx
 
-from tests.conftest import ADZUNA, CNES, IBGE, carregar
+from tests.conftest import ADZUNA, CNES, CNES_HABILITADOS_SP, IBGE, carregar
 
 
 def sincronizar(client, **params):
@@ -27,7 +27,9 @@ def test_sincroniza_todas_as_fontes(client, fontes_ok):
 
     pagina = client.get("/api/vagas", params={"tamanho": 50}).json()
     assert pagina["total"] == 2 + 2 + 3  # curadoria + Adzuna + Gupy
-    assert client.get("/api/municipios", params={"uf": "SP"}).json()[0]["nome"] == "Campinas"
+    nomes = [m["nome"] for m in client.get("/api/municipios", params={"uf": "SP"}).json()]
+    assert {"Campinas", "Diadema", "Guarulhos", "São Paulo"} <= set(nomes)
+    assert nomes == sorted(nomes, key=lambda n: n.replace("Á", "A").replace("ã", "a")), "ordem alfabética sem acento"
 
 
 def test_dentro_do_prazo_o_cache_responde_sem_chamar_a_fonte(client, fontes_ok, relogio):
@@ -125,17 +127,19 @@ def test_adzuna_sem_chave_fica_nao_configurada(settings, relogio, mock_http):
 def test_cnes_atualiza_o_retrato_e_avisa_codigo_inexistente(client, mock_http):
     dados = carregar("cnes_estabelecimento_2078015.json")
     dados["numero_telefone_estabelecimento"] = "(11) 2661-0000"
+    for codigo in CNES_HABILITADOS_SP:
+        mock_http.get(f"{CNES}/estabelecimentos/{codigo}").respond(200, json=carregar(f"cnes_estabelecimento_{codigo}.json"))
     mock_http.get(f"{CNES}/estabelecimentos/2078015").respond(200, json=dados)
-    mock_http.get(f"{CNES}/estabelecimentos/2812703").respond(404, json=carregar("cnes_estabelecimento_inexistente.json"))
+    mock_http.get(f"{CNES}/estabelecimentos/6682774").respond(404, json=carregar("cnes_estabelecimento_inexistente.json"))
 
     resultado = sincronizar(client, fonte="cnes")
-    assert (resultado["cnes"]["status"], resultado["cnes"]["itens"]) == ("sucesso", 1)
-    assert resultado["cnes"]["mensagem"] == "Não encontrados no CNES: 2812703."
-    assert client.get("/api/cnes/estabelecimentos/2812703").status_code == 200, "o retrato anterior continua"
+    assert (resultado["cnes"]["status"], resultado["cnes"]["itens"]) == ("sucesso", 5)
+    assert resultado["cnes"]["mensagem"] == "Não encontrados no CNES: 6682774."
+    assert client.get("/api/cnes/estabelecimentos/6682774").status_code == 200, "o retrato anterior continua"
 
     hc = client.get("/api/cnes/estabelecimentos/2078015").json()
     assert hc["telefone"] == "(11) 2661-0000"
-    assert hc["habilitacoes"] == ["30.01"], "habilitação vem da curadoria e sobrevive ao sync"
+    assert hc["habilitacoes"] == ["30.01", "30.02", "30.03"], "habilitação vem do arquivo oficial e sobrevive ao sync"
     assert hc["coletado_em"] == "2026-11-10T12:00:00Z"
 
 

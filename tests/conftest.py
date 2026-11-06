@@ -21,6 +21,10 @@ CNES = "https://apidadosabertos.saude.gov.br/cnes"
 IBGE = "https://servicodados.ibge.gov.br/api/v1/localidades"
 
 
+# Habilitados no processo transexualizador em SP (arquivo oficial HBSP2609, migração 0004).
+CNES_HABILITADOS_SP = (2077957, 2078015, 2079798, 2097036, 6487173, 6682774)
+
+
 def carregar(nome: str):
     return json.loads((FIXTURES / nome).read_text(encoding="utf-8"))
 
@@ -91,10 +95,11 @@ def fontes_ok(mock_http):
                 200, json={"data": [], "pagination": {}})
             for termo in ("transgênero", "LGBT", "LGBTQIA", "não binária")
         },
-        "cnes": mock_http.get(f"{CNES}/estabelecimentos/2078015").respond(
-            200, json=carregar("cnes_estabelecimento_2078015.json")),
-        "cnes_ipq": mock_http.get(f"{CNES}/estabelecimentos/2812703").respond(
-            200, json=carregar("cnes_estabelecimento_2812703.json")),
+        **{
+            f"cnes_{codigo}": mock_http.get(f"{CNES}/estabelecimentos/{codigo}").respond(
+                200, json=carregar(f"cnes_estabelecimento_{codigo}.json"))
+            for codigo in CNES_HABILITADOS_SP
+        },
         "ibge": mock_http.get(f"{IBGE}/estados/SP/municipios").respond(200, json=carregar("ibge_municipios_sp.json")),
     }
     return rotas
