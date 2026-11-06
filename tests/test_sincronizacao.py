@@ -126,13 +126,16 @@ def test_cnes_atualiza_o_retrato_e_avisa_codigo_inexistente(client, mock_http):
     dados = carregar("cnes_estabelecimento_2078015.json")
     dados["numero_telefone_estabelecimento"] = "(11) 2661-0000"
     mock_http.get(f"{CNES}/estabelecimentos/2078015").respond(200, json=dados)
+    mock_http.get(f"{CNES}/estabelecimentos/2812703").respond(404, json=carregar("cnes_estabelecimento_inexistente.json"))
 
     resultado = sincronizar(client, fonte="cnes")
-    assert resultado["cnes"]["status"] == "sucesso"
+    assert (resultado["cnes"]["status"], resultado["cnes"]["itens"]) == ("sucesso", 1)
+    assert resultado["cnes"]["mensagem"] == "Não encontrados no CNES: 2812703."
+    assert client.get("/api/cnes/estabelecimentos/2812703").status_code == 200, "o retrato anterior continua"
 
     hc = client.get("/api/cnes/estabelecimentos/2078015").json()
     assert hc["telefone"] == "(11) 2661-0000"
-    assert hc["habilitacoes"] == ["30.02"], "habilitação vem da curadoria e sobrevive ao sync"
+    assert hc["habilitacoes"] == ["30.01"], "habilitação vem da curadoria e sobrevive ao sync"
     assert hc["coletado_em"] == "2026-11-10T12:00:00Z"
 
 
@@ -142,4 +145,4 @@ def test_ibge_fora_do_ar_nao_derruba_a_consulta_de_estabelecimentos(client, mock
     assert sincronizar(client, fonte="ibge")["ibge"]["status"] == "falha"
     resposta = client.get("/api/municipios/3550308/estabelecimentos")
     assert resposta.status_code == 200
-    assert resposta.json()["total"] == 1
+    assert resposta.json()["total"] == 2

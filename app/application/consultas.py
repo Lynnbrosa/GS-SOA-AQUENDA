@@ -7,7 +7,9 @@ from typing import Generic, TypeVar
 
 from app.application.erros import ParametroInvalido, RecursoNaoEncontrado
 from app.domain.comum import DomainError
-from app.domain.localidades import EstabelecimentoCnes, Municipio, validar_codigo_cnes, validar_codigo_ibge
+from app.domain.localidades import (
+    HABILITACOES_PROCESSO_TRANSEXUALIZADOR, EstabelecimentoCnes, Municipio, validar_codigo_cnes, validar_codigo_ibge,
+)
 from app.domain.repositorios import FiltroVagas, UnidadeDeTrabalho
 from app.domain.vaga import Vaga
 
@@ -66,11 +68,22 @@ class LocalidadeService:
         return municipio
 
     def estabelecimentos_do_municipio(
-        self, codigo_ibge: int, habilitacao: str | None
-    ) -> tuple[Municipio | None, list[EstabelecimentoCnes]]:
+        self, codigo_ibge: int, habilitacao: str | None = None, todas: bool = False
+    ) -> tuple[Municipio | None, list[str] | None, list[EstabelecimentoCnes]]:
+        """Por padrão, quem tem qualquer habilitação do processo transexualizador (30.01, 30.02 ou 30.03)."""
         codigo = self._codigo_ibge(codigo_ibge)
+        if todas:
+            filtro = None
+        elif habilitacao:
+            if habilitacao not in HABILITACOES_PROCESSO_TRANSEXUALIZADOR:
+                raise ParametroInvalido(
+                    f"habilitacao deve ser uma de {', '.join(HABILITACOES_PROCESSO_TRANSEXUALIZADOR)}."
+                )
+            filtro = [habilitacao]
+        else:
+            filtro = list(HABILITACOES_PROCESSO_TRANSEXUALIZADOR)
         municipio = self._uow.municipios.obter(codigo)
-        return municipio, self._uow.estabelecimentos.listar_por_municipio(codigo // 10, habilitacao)
+        return municipio, filtro, self._uow.estabelecimentos.listar_por_municipio(codigo // 10, filtro)
 
     def obter_estabelecimento(self, codigo_cnes: int) -> EstabelecimentoCnes:
         try:

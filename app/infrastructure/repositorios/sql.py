@@ -168,12 +168,12 @@ class SqlEstabelecimentoRepository:
     def __init__(self, sessao: Session) -> None:
         self._s = sessao
 
-    def listar_por_municipio(self, codigo_municipio: int, habilitacao: str | None) -> list[EstabelecimentoCnes]:
+    def listar_por_municipio(self, codigo_municipio: int, habilitacoes: list[str] | None) -> list[EstabelecimentoCnes]:
         consulta = select(EstabelecimentoModel).where(EstabelecimentoModel.codigo_municipio == codigo_municipio)
-        if habilitacao:
+        if habilitacoes is not None:
             consulta = consulta.where(
                 EstabelecimentoModel.codigo_cnes.in_(
-                    select(HabilitacaoModel.codigo_cnes).where(HabilitacaoModel.codigo == habilitacao)
+                    select(HabilitacaoModel.codigo_cnes).where(HabilitacaoModel.codigo.in_(habilitacoes))
                 )
             )
         consulta = consulta.order_by(EstabelecimentoModel.nome)
@@ -189,11 +189,12 @@ class SqlEstabelecimentoRepository:
             setattr(m, campo, getattr(e, campo))
         self._s.add(m)
 
-    def codigos_habilitados(self, habilitacao: str) -> list[int]:
+    def codigos_habilitados(self, habilitacoes: list[str]) -> list[int]:
         return list(
             self._s.scalars(
                 select(HabilitacaoModel.codigo_cnes)
-                .where(HabilitacaoModel.codigo == habilitacao)
+                .where(HabilitacaoModel.codigo.in_(habilitacoes))
+                .distinct()
                 .order_by(HabilitacaoModel.codigo_cnes)
             )
         )

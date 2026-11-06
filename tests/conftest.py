@@ -93,6 +93,8 @@ def fontes_ok(mock_http):
         },
         "cnes": mock_http.get(f"{CNES}/estabelecimentos/2078015").respond(
             200, json=carregar("cnes_estabelecimento_2078015.json")),
+        "cnes_ipq": mock_http.get(f"{CNES}/estabelecimentos/2812703").respond(
+            200, json=carregar("cnes_estabelecimento_2812703.json")),
         "ibge": mock_http.get(f"{IBGE}/estados/SP/municipios").respond(200, json=carregar("ibge_municipios_sp.json")),
     }
     return rotas

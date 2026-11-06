@@ -15,9 +15,11 @@ def test_upgrade_cria_tabelas_e_dados_curados(settings):
     engine = create_engine(settings.database_url)
     assert TABELAS <= set(inspect(engine).get_table_names())
     with engine.connect() as c:
-        assert c.scalar(text("SELECT version_num FROM alembic_version")) == "0002"
+        assert c.scalar(text("SELECT version_num FROM alembic_version")) == "0003"
         assert c.scalar(text("SELECT count(*) FROM vagas WHERE origem = 'curadoria'")) == 2
-        assert c.scalar(text("SELECT codigo FROM habilitacoes_cnes WHERE codigo_cnes = 2078015")) == "30.02"
+        habilitacoes = c.execute(text("SELECT codigo_cnes, codigo FROM habilitacoes_cnes ORDER BY codigo_cnes")).all()
+        assert [tuple(h) for h in habilitacoes] == [(2078015, "30.01"), (2812703, "30.01")]
+        assert "2.803" in c.scalar(text("SELECT fonte FROM habilitacoes_cnes WHERE codigo_cnes = 2812703"))
 
 
 def test_modelos_e_migracoes_nao_divergem(settings):
@@ -30,6 +32,10 @@ def test_modelos_e_migracoes_nao_divergem(settings):
 
 def test_downgrade_desfaz_tudo_e_upgrade_de_novo_funciona(settings):
     migrar(settings.database_url)
+    reverter(settings.database_url, "0002")
+    engine = create_engine(settings.database_url)
+    with engine.connect() as c:
+        assert c.scalar(text("SELECT codigo FROM habilitacoes_cnes")) == "30.02", "0003 desfaz a correção"
     reverter(settings.database_url, "0001")
     engine = create_engine(settings.database_url)
     with engine.connect() as c:

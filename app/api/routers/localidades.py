@@ -5,7 +5,6 @@ from fastapi import APIRouter, Depends, Path, Query
 from app.api.deps import get_localidades
 from app.api.schemas import EstabelecimentoSaida, EstabelecimentosDoMunicipio, MunicipioSaida, Problema
 from app.application.consultas import LocalidadeService
-from app.domain.localidades import HABILITACAO_PROCESSO_TRANSEXUALIZADOR
 
 router = APIRouter(tags=["Municípios e CNES"])
 
@@ -33,22 +32,23 @@ def obter_municipio(servico: Servico, codigo_ibge: Annotated[int, Path(examples=
     response_model=EstabelecimentosDoMunicipio,
     summary="Estabelecimentos CNES de um município",
     description=(
-        "Por padrão traz só quem tem a habilitação 30.02 (processo transexualizador). "
-        "Mande `habilitacao=` vazio para ver todos os estabelecimentos sincronizados."
+        "Por padrão traz quem tem habilitação no processo transexualizador do SUS: 30.01 (unidade, código de 2008), "
+        "30.02 (ambulatorial: acompanhamento e hormonioterapia) ou 30.03 (hospitalar: cirurgias). "
+        "Use `habilitacao` para um código só, ou `todas=true` para todos os estabelecimentos sincronizados."
     ),
     responses={400: {"model": Problema, "description": "Código IBGE inválido"}},
 )
 def estabelecimentos_do_municipio(
     servico: Servico,
     codigo_ibge: Annotated[int, Path(description="Código IBGE de 7 dígitos.", examples=[3550308])],
-    habilitacao: Annotated[str | None, Query(max_length=10)] = HABILITACAO_PROCESSO_TRANSEXUALIZADOR,
+    habilitacao: Annotated[str | None, Query(max_length=5, examples=["30.02"])] = None,
+    todas: Annotated[bool, Query(description="true = ignora habilitação.")] = False,
 ) -> EstabelecimentosDoMunicipio:
-    habilitacao = habilitacao or None
-    municipio, itens = servico.estabelecimentos_do_municipio(codigo_ibge, habilitacao)
+    municipio, filtro, itens = servico.estabelecimentos_do_municipio(codigo_ibge, habilitacao, todas)
     return EstabelecimentosDoMunicipio(
         codigo_ibge=codigo_ibge,
         municipio=MunicipioSaida.model_validate(municipio) if municipio else None,
-        habilitacao=habilitacao,
+        habilitacoes=filtro,
         total=len(itens),
         itens=[EstabelecimentoSaida.model_validate(e) for e in itens],
     )

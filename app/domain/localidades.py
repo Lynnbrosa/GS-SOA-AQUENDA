@@ -15,7 +15,12 @@ UFS_IBGE = {
     50: "MS", 51: "MT", 52: "GO", 53: "DF",
 }
 
-HABILITACAO_PROCESSO_TRANSEXUALIZADOR = "30.02"
+# Tabela de Habilitações do SCNES, Portaria GM/MS nº 2.803/2013 (arts. 8º e 9º).
+HABILITACOES_PROCESSO_TRANSEXUALIZADOR = {
+    "30.01": "Unidade de Atenção Especializada no Processo Transexualizador (código de 2008, segue válido)",
+    "30.02": "Ambulatorial: acompanhamento clínico, pré e pós-operatório e hormonioterapia",
+    "30.03": "Hospitalar: cirurgias e acompanhamento pré e pós-operatório",
+}
 
 
 def validar_codigo_ibge(codigo: int | str) -> int:

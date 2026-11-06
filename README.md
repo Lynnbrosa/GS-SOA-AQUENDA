@@ -30,7 +30,7 @@ O nome vem do pajubá, a linguagem criada e mantida pela comunidade travesti: *a
 ## O que o serviço faz
 
 - **Vagas afirmativas** (`/api/vagas`): junta a **Adzuna** (API oficial), a **Gupy** (rota pública que o portal de vagas portal.gupy.io usa na busca) e a **curadoria do grupo** (Transcidadania e TransEmpregos, fixos e com fonte). Filtra por texto, cidade, UF, afirmativa, modalidade e origem. Cada vaga diz **por que** é afirmativa (o trecho do anúncio) e traz o link do **site de origem**: a candidatura é sempre lá, o Aquenda não recebe currículo.
-- **Saúde trans no SUS** (`/api/municipios/{codigo}/estabelecimentos`): estabelecimentos do **CNES** com a habilitação **30.02** (processo transexualizador), com endereço, telefone, coordenadas e data de atualização no CNES.
+- **Saúde trans no SUS** (`/api/municipios/{codigo}/estabelecimentos`): estabelecimentos do **CNES** habilitados no **processo transexualizador** do SUS (30.01, 30.02 ambulatorial ou 30.03 hospitalar), com endereço, telefone, coordenadas e data de atualização no CNES.
 - **Municípios** (`/api/municipios`): base do **IBGE Localidades**, com o código que o DATASUS usa (IBGE sem o dígito verificador).
 - **Fontes** (`/api/fontes`): de quando é o dado de cada fonte, se o cache vale e qual foi o último erro. `POST /api/fontes/sincronizar` busca dados novos.
 
@@ -108,7 +108,7 @@ Saúde do serviço para o monitoramento: `GET /health`. Exemplos de unidade syst
 | GET | `/api/vagas/{id}` | Detalhe com descrição, fonte, data da coleta e aviso de candidatura no site de origem |
 | GET | `/api/municipios?uf=SP&nome=` | Municípios do IBGE, busca sem diferenciar acento |
 | GET | `/api/municipios/{codigo_ibge}` | Um município |
-| GET | `/api/municipios/{codigo_ibge}/estabelecimentos?habilitacao=30.02` | Estabelecimentos CNES do município (por padrão, só os com habilitação 30.02) |
+| GET | `/api/municipios/{codigo_ibge}/estabelecimentos?habilitacao=&todas=` | Estabelecimentos CNES do município. Por padrão, os habilitados no processo transexualizador (30.01, 30.02 ou 30.03); `habilitacao=30.02` filtra um código; `todas=true` mostra todos |
 | GET | `/api/cnes/estabelecimentos/{codigo_cnes}` | Um estabelecimento |
 | GET | `/api/fontes` | Estado de cada fonte: configurada, cache válido, última coleta e última coleta boa |
 | POST | `/api/fontes/sincronizar?fonte=&forcar=` | Busca dados novos (todas ou uma fonte) |
@@ -138,8 +138,9 @@ app/
     fontes/         adaptadores HTTP: Adzuna, Gupy, CNES, IBGE
   api/              rotas FastAPI, schemas Pydantic, dependências, ProblemDetails
   cli.py            sincronização pela linha de comando (timer da VM)
+scripts/            habilitacoes_cnes.py: lê o arquivo oficial de habilitações do CNES (DATASUS)
 alembic/            env.py (lê DATABASE_URL) e versions/
-tests/              100 testes pytest + respostas gravadas em tests/fixtures
+tests/              102 testes pytest + respostas gravadas em tests/fixtures
 ```
 
 ```
@@ -158,9 +159,9 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 |---|---|---|
 | **Estruturação do domínio** | 3,0 | `app/domain`. `Vaga.criar` é a única porta de entrada: limpa HTML, recusa link que não é http(s) (ex.: `javascript:`), corrige salário invertido e decide se a vaga é afirmativa. A regra de vaga afirmativa (`domain/afirmativa.py`) exige que o anúncio cite o público LGBTQIAPN+ ("afirmativa para PCD" não conta), usa fronteira de palavra para não confundir "trans" com "transporte" e guarda o termo encontrado. `Municipio` confere a UF pelo código IBGE; `codigo_municipio_cnes` converte para o código de 6 dígitos do DATASUS. `EstabelecimentoCnes` não guarda e-mail e preserva as habilitações da curadoria quando o CNES atualiza. `cache_valido` e `Sincronizacao` decidem quando chamar uma fonte. Repositórios e fontes são contratos (`Protocol`) que a infraestrutura implementa; a aplicação recebe tudo por injeção (`app/api/deps.py`). |
 | **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL funciona sem mudar código). Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
-| **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação 30.02 e retrato do CNES, com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
+| **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação e retrato do CNES. `0003` **corrige dados** já publicados: o HC-FMUSP passa de 30.02 para 30.01 e entra o Instituto de Psiquiatria, conferidos na Portaria 2.803/2013. Todas com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
 | **Documentação automática** | 1,5 | Swagger em `/docs` e ReDoc em `/redoc`, com descrição do serviço, 3 grupos de rotas, resumo e descrição por endpoint, exemplos nos parâmetros, descrição dos campos nos schemas e respostas de erro documentadas como `application/problem+json` (o 422 padrão do FastAPI foi trocado pelo 400 que a API realmente devolve). |
-| **Testes automatizados** | 1,0 | 100 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
+| **Testes automatizados** | 1,0 | 102 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
 
 ## Fontes, cache e o que acontece quando algo cai
 
@@ -168,10 +169,37 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 |---|---|---|---|
 | Adzuna | `GET /v1/api/jobs/br/search/{página}` com `what_or` (LGBT, travesti, transgênero, trans...) em São Paulo, 1 página por padrão (`ADZUNA_PAGINAS`) | 60 min | Sem chave: `nao_configurada`. Chave recusada, fora do ar ou formato estranho: `falha`, e as vagas antigas continuam |
 | Gupy | `GET portal.gupy.io/api/job-search/jobs?jobName=` para trans, travesti, transgênero, LGBT, LGBTQIA e não binária, sem duplicar | 60 min | `falha`; URL configurável em `GUPY_URL` |
-| CNES | `GET /cnes/estabelecimentos/{código}` para cada código da lista de habilitação 30.02 | 24 h | `falha`; código que não existe mais é avisado na mensagem |
+| CNES | `GET /cnes/estabelecimentos/{código}` para cada estabelecimento da lista de habilitações (30.01, 30.02, 30.03) | 24 h | `falha`; código que não existe mais é avisado na mensagem |
 | IBGE | `GET /localidades/estados/SP/municipios` | 7 dias | `falha`; resposta vazia também conta como falha |
 
-A API aberta do CNES não filtra por habilitação. Por isso a lista de quem tem a 30.02 fica na tabela `habilitacoes_cnes` (curadoria, com fonte e data), e a sincronização completa o resto pelo CNES. **Hoje a lista tem só o HC-FMUSP (CNES 2078015)** e está marcada para conferência. O grupo precisa confirmar os códigos na portaria de habilitação e acrescentar os ambulatórios de São Paulo com uma nova migração de dados.
+### Habilitações do processo transexualizador
+
+A API aberta do CNES não filtra por habilitação. A lista fica na tabela `habilitacoes_cnes`, cada linha com a fonte, e a sincronização completa o resto pelo CNES.
+
+| Código | O que é (Portaria GM/MS nº 2.803/2013) |
+|---|---|
+| 30.01 | Unidade de Atenção Especializada no Processo Transexualizador (código de 2008, segue válido) |
+| 30.02 | Ambulatorial: acompanhamento clínico, pré e pós-operatório e **hormonioterapia** |
+| 30.03 | Hospitalar: cirurgias e acompanhamento pré e pós-operatório |
+
+Em São Paulo (capital), conferidos no texto da [Portaria 2.803/2013](https://bvsms.saude.gov.br/bvs/saudelegis/gm/2013/prt2803_19_11_2013.html), art. 9º:
+
+| CNES | Estabelecimento | Habilitação |
+|---|---|---|
+| 2078015 | Hospital das Clínicas da FMUSP | 30.01 |
+| 2812703 | HCFMUSP, Instituto de Psiquiatria | 30.01 |
+
+Habilitações publicadas depois de 2013 (o CRT DST/Aids-SP, por exemplo, aparece em notícias como habilitado no ambulatorial, mas a portaria não foi localizada) vêm do **arquivo oficial de habilitações do CNES** no FTP do DATASUS. O script abaixo lê esse arquivo e precisa rodar numa máquina no Brasil, porque o DATASUS recusa conexões de fora:
+
+```bash
+pip install -r scripts/requirements-habilitacoes.txt
+```
+
+```bash
+python scripts/habilitacoes_cnes.py --uf SP
+```
+
+Ele imprime cada estabelecimento com o código, a portaria e o nome no CNES, e grava `scripts/saida/habilitacoes_SP_<AAMM>.json`. O resultado entra como uma nova migração de dados.
 
 ## Decisões de segurança e privacidade
 
@@ -199,7 +227,7 @@ O teste real também mostrou problemas, já corrigidos: o endereço antigo da Gu
 
 As respostas usadas nos testes estão em [`tests/fixtures`](tests/fixtures), com a origem de cada uma no README da pasta. São **gravadas das fontes reais em 06/11/2026**: as 6 buscas da Gupy (37 vagas), a página 1 da Adzuna (50 vagas), o estabelecimento do CNES, o 404 do CNES e o 401 da Adzuna. Os casos de borda (vaga sem link, link `javascript:`, formato mudado) e a resposta do IBGE foram **montados** no formato documentado de cada fonte, com empresas fictícias ("Empresa Exemplo"), porque o IBGE recusou a conexão.
 
-Fontes: [CNES, dados abertos do Ministério da Saúde](https://apidadosabertos.saude.gov.br) · [IBGE Localidades](https://servicodados.ibge.gov.br/api/docs/localidades) · [Adzuna API](https://developer.adzuna.com) · [Prefeitura SP, Transcidadania](https://prefeitura.sp.gov.br/web/lgbti/w/menu/150965) · [TransEmpregos](https://www.transempregos.org) · [Portaria de habilitação citada no pitch](https://www.conass.org.br/?p=2674)
+Fontes: [CNES, dados abertos do Ministério da Saúde](https://apidadosabertos.saude.gov.br) · [IBGE Localidades](https://servicodados.ibge.gov.br/api/docs/localidades) · [Adzuna API](https://developer.adzuna.com) · [Prefeitura SP, Transcidadania](https://prefeitura.sp.gov.br/web/lgbti/w/menu/150965) · [TransEmpregos](https://www.transempregos.org) · [Portaria GM/MS nº 2.803/2013](https://bvsms.saude.gov.br/bvs/saudelegis/gm/2013/prt2803_19_11_2013.html)
 
 ## Evidências
 
@@ -215,7 +243,7 @@ Vagas afirmativas em São Paulo:
 
 ![Vagas](docs/evidencias/swagger-vagas-afirmativas.png)
 
-Estabelecimentos com habilitação 30.02 no município de São Paulo:
+Estabelecimentos habilitados no processo transexualizador no município de São Paulo:
 
 ![CNES](docs/evidencias/swagger-estabelecimentos-cnes.png)
 

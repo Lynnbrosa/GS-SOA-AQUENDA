@@ -101,16 +101,22 @@ def test_vaga_inexistente_404(client):
 def test_estabelecimentos_do_municipio_com_habilitacao(client):
     corpo = client.get("/api/municipios/3550308/estabelecimentos").json()
     assert corpo["municipio"]["nome"] == "São Paulo"
-    assert corpo["habilitacao"] == "30.02"
-    assert [e["codigo_cnes"] for e in corpo["itens"]] == [2078015]
-    assert corpo["itens"][0]["fonte"].startswith("CNES/DATASUS")
-    assert client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": "99.99"}).json()["total"] == 0
-    assert client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": ""}).json()["total"] == 1
+    assert corpo["habilitacoes"] == ["30.01", "30.02", "30.03"]
+    assert {e["codigo_cnes"]: e["habilitacoes"] for e in corpo["itens"]} == {2078015: ["30.01"], 2812703: ["30.01"]}
+    assert all(e["fonte"].startswith("CNES/DATASUS") for e in corpo["itens"])
+
+    so_ambulatorial = client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": "30.02"}).json()
+    assert (so_ambulatorial["habilitacoes"], so_ambulatorial["total"]) == (["30.02"], 0)
+    todas = client.get("/api/municipios/3550308/estabelecimentos", params={"todas": "true"}).json()
+    assert (todas["habilitacoes"], todas["total"]) == (None, 2)
+    invalida = client.get("/api/municipios/3550308/estabelecimentos", params={"habilitacao": "99.99"})
+    assert invalida.status_code == 400 and "30.01" in invalida.json()["detail"]
 
 
 def test_municipio_sem_dados_responde_lista_vazia_e_codigo_errado_400(client):
     corpo = client.get("/api/municipios/3518800/estabelecimentos").json()
-    assert corpo == {"codigo_ibge": 3518800, "municipio": None, "habilitacao": "30.02", "total": 0, "itens": []}
+    assert corpo == {"codigo_ibge": 3518800, "municipio": None, "habilitacoes": ["30.01", "30.02", "30.03"],
+                     "total": 0, "itens": []}
     assert client.get("/api/municipios/355030/estabelecimentos").status_code == 400
     assert client.get("/api/municipios/9950308/estabelecimentos").status_code == 400
 

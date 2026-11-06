@@ -76,7 +76,7 @@ class EstabelecimentoSaida(Saida):
 class EstabelecimentosDoMunicipio(BaseModel):
     codigo_ibge: int
     municipio: MunicipioSaida | None = Field(description="Nulo se o IBGE ainda não foi sincronizado.")
-    habilitacao: str | None
+    habilitacoes: list[str] | None = Field(description="Códigos usados no filtro. Nulo quando `todas=true`.")
     total: int
     itens: list[EstabelecimentoSaida]
 

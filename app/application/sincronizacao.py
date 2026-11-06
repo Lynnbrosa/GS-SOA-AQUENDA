@@ -12,7 +12,7 @@ from dataclasses import dataclass
 
 from app.application.portas import FonteCnes, FonteDeVagas, FonteIbge, FonteIndisponivel, Relogio
 from app.domain.enums import NomeFonte, StatusSincronizacao
-from app.domain.localidades import HABILITACAO_PROCESSO_TRANSEXUALIZADOR
+from app.domain.localidades import HABILITACOES_PROCESSO_TRANSEXUALIZADOR
 from app.domain.repositorios import UnidadeDeTrabalho
 from app.domain.sincronizacao import Sincronizacao, cache_valido
 
@@ -119,7 +119,7 @@ class SincronizacaoService:
         return len(vagas), (f"{saidas} vaga(s) saíram do ar na fonte." if saidas else None)
 
     def _sincronizar_cnes(self, inicio) -> tuple[int, str | None]:
-        codigos = self._uow.estabelecimentos.codigos_habilitados(HABILITACAO_PROCESSO_TRANSEXUALIZADOR)
+        codigos = self._uow.estabelecimentos.codigos_habilitados(list(HABILITACOES_PROCESSO_TRANSEXUALIZADOR))
         atualizados, ausentes = 0, []
         for codigo in codigos:
             novo = self._cnes.obter(codigo, inicio)
