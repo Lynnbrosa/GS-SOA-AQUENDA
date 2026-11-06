@@ -153,3 +153,38 @@ def test_ibge_conexao_recusada(mock_http, cliente, settings):
     mock_http.get(f"{IBGE}/estados/SP/municipios").mock(side_effect=httpx.ConnectError("reset"))
     with pytest.raises(FonteIndisponivel, match="fora do ar"):
         IbgeFonte(cliente, settings).municipios("SP", AGORA)
+
+
+def test_chave_da_adzuna_nao_vai_para_o_log(mock_http, cliente, settings, caplog):
+    mock_http.get(url__startswith=f"{ADZUNA}/1").respond(200, json=carregar("adzuna_busca.json"))
+    with caplog.at_level("DEBUG"):
+        AdzunaFonte(cliente, settings).buscar(AGORA)
+    assert "chave-de-teste" not in caplog.text
+
+
+@pytest.mark.parametrize("area, esperado", [
+    (["Brasil", "Sudeste", "Estado de São Paulo", "São Paulo"], ("São Paulo", "SP")),
+    (["Brasil", "Sudeste", "Estado de São Paulo", "São Paulo", "Centro", "Consolação"], ("São Paulo", "SP")),
+    (["Brasil", "Sudeste", "Estado do Rio de Janeiro", "Niterói"], ("Niterói", "RJ")),
+    (["Brasil", "Centro-Oeste", "Distrito Federal", "Brasília"], ("Brasília", "DF")),
+    (["Brasil", "Sudeste", "Estado de São Paulo"], (None, "SP")),
+    (["Brasil"], (None, None)),
+])
+def test_adzuna_le_cidade_e_uf_no_formato_brasileiro(area, esperado):
+    assert AdzunaFonte._cidade_uf(area) == esperado
+
+
+def test_adzuna_resposta_real_gravada(mock_http, cliente, settings):
+    """Página 1 real (06/11/2026): 50 vagas em São Paulo; o filtro separa as afirmativas LGBTQIAPN+."""
+    rota = mock_http.get(url__startswith=f"{ADZUNA}/1").respond(200, json=carregar("adzuna_real_pagina1.json"))
+
+    vagas = AdzunaFonte(cliente, settings).buscar(AGORA)
+
+    assert rota.call_count == 1, "uma página por padrão para poupar a cota"
+    assert len(vagas) == 50
+    assert all((v.cidade, v.uf) == ("São Paulo", "SP") for v in vagas)
+    afirmativas = [v for v in vagas if v.afirmativa]
+    assert len(afirmativas) == 34
+    assert "Pessoa Advogada - Vaga afirmativa para pessoas trans" in {v.titulo for v in afirmativas}
+    assert not any("Carrefour" in v.titulo for v in afirmativas)
+    assert all(v.url_candidatura.startswith("https://www.adzuna.com.br/") for v in vagas)

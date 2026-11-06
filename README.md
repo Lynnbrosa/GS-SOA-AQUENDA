@@ -80,6 +80,7 @@ Copie `.env.example` para `.env`. O `.env` não vai para o repositório.
 | `ADZUNA_APP_ID`, `ADZUNA_APP_KEY` | Chave grátis em developer.adzuna.com. Sem ela, a Adzuna fica `nao_configurada` e o resto funciona | vazio |
 | `CHAVE_OPERADOR` | Protege `POST /api/fontes/sincronizar` (cabeçalho `X-Chave-Operador`) | vazio |
 | `AMBIENTE` | Em `desenvolvimento`, a sincronização fica livre sem chave. Fora dele, sem chave configurada responde 503 | `desenvolvimento` |
+| `ADZUNA_PAGINAS` | Páginas de 50 vagas por sincronização (cada uma gasta uma chamada da cota) | `1` |
 | `GUPY_URL` | Rota pública de busca do portal da Gupy (configurável porque não é API oficial e já mudou de endereço) | `https://portal.gupy.io/api/job-search/jobs` |
 | `CACHE_MINUTOS_VAGAS`, `CACHE_MINUTOS_CNES`, `CACHE_MINUTOS_IBGE` | Quanto tempo o resultado de cada fonte vale | 60 · 1440 · 10080 |
 | `MIGRAR_AO_INICIAR` | Aplica as migrações na subida | `true` |
@@ -138,7 +139,7 @@ app/
   api/              rotas FastAPI, schemas Pydantic, dependências, ProblemDetails
   cli.py            sincronização pela linha de comando (timer da VM)
 alembic/            env.py (lê DATABASE_URL) e versions/
-tests/              92 testes pytest + respostas gravadas em tests/fixtures
+tests/              100 testes pytest + respostas gravadas em tests/fixtures
 ```
 
 ```
@@ -159,13 +160,13 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 | **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL funciona sem mudar código). Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
 | **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação 30.02 e retrato do CNES, com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
 | **Documentação automática** | 1,5 | Swagger em `/docs` e ReDoc em `/redoc`, com descrição do serviço, 3 grupos de rotas, resumo e descrição por endpoint, exemplos nos parâmetros, descrição dos campos nos schemas e respostas de erro documentadas como `application/problem+json` (o 422 padrão do FastAPI foi trocado pelo 400 que a API realmente devolve). |
-| **Testes automatizados** | 1,0 | 92 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
+| **Testes automatizados** | 1,0 | 100 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
 
 ## Fontes, cache e o que acontece quando algo cai
 
 | Fonte | Como entra | Cache | Se falhar |
 |---|---|---|---|
-| Adzuna | `GET /v1/api/jobs/br/search/{página}` com `what_or` (afirmativa, LGBT, travesti...) em São Paulo, até 2 páginas | 60 min | Sem chave: `nao_configurada`. Chave recusada, fora do ar ou formato estranho: `falha`, e as vagas antigas continuam |
+| Adzuna | `GET /v1/api/jobs/br/search/{página}` com `what_or` (LGBT, travesti, transgênero, trans...) em São Paulo, 1 página por padrão (`ADZUNA_PAGINAS`) | 60 min | Sem chave: `nao_configurada`. Chave recusada, fora do ar ou formato estranho: `falha`, e as vagas antigas continuam |
 | Gupy | `GET portal.gupy.io/api/job-search/jobs?jobName=` para trans, travesti, transgênero, LGBT, LGBTQIA e não binária, sem duplicar | 60 min | `falha`; URL configurável em `GUPY_URL` |
 | CNES | `GET /cnes/estabelecimentos/{código}` para cada código da lista de habilitação 30.02 | 24 h | `falha`; código que não existe mais é avisado na mensagem |
 | IBGE | `GET /localidades/estados/SP/municipios` | 7 dias | `falha`; resposta vazia também conta como falha |
@@ -177,6 +178,7 @@ A API aberta do CNES não filtra por habilitação. Por isso a lista de quem tem
 - **Nenhum dado de quem usa o app passa por aqui.** Não há cadastro, currículo nem registro de quem buscou o quê. A agenda de hormônio, consultas e PIN ficam só no celular (contrato do grupo).
 - **E-mail do CNES não é guardado.** A resposta do CNES traz o e-mail do responsável pelo cadastro, que costuma ser pessoal; o adaptador ignora o campo e um teste garante que o estabelecimento convertido não carrega nada com `@`. A resposta gravada para os testes também está sem ele.
 - **Link de candidatura só http(s).** Evita que um anúncio malicioso injete `javascript:` no app.
+- **Chave da Adzuna fora do log.** A Adzuna recebe a chave na URL; o log do cliente HTTP fica em WARNING para a URL não ser gravada, e um teste confere.
 - **Escrita protegida.** A sincronização exige `X-Chave-Operador` fora de desenvolvimento, comparado em tempo constante.
 - **Cliente HTTP identificado.** As fontes recebem o User-Agent `aquenda-soa/1.0 (GS CitizenTech FIAP)`. A Gupy é usada pela rota pública do portal, com cache de 60 minutos para não sobrecarregar.
 
@@ -188,14 +190,14 @@ Sincronização rodada contra as fontes de verdade, num banco novo, com a API no
 |---|---|
 | Gupy | **35 vagas reais** (37 respostas, 2 repetidas entre termos), 33 de cara classificadas como afirmativas. As 2 restantes eram "Vaga afirmativa para mulheres (cis e trans)", e a regra foi ajustada para contá-las. 25 em SP; o link de candidatura de uma delas foi aberto e respondeu 200. |
 | CNES | HC-FMUSP atualizado pela API de dados abertos. |
-| Adzuna | `nao_configurada`: falta a chave (`ADZUNA_APP_ID`/`ADZUNA_APP_KEY`). Com chave inválida a API respondeu 401, tratado como `falha`. |
+| Adzuna | **50 vagas reais** em São Paulo (de 951 encontradas), **34 afirmativas** LGBTQIAPN+. As 16 restantes (Carrefour, telemarketing, "Trans. Financeiras") ficaram corretamente fora do filtro. Usou 2 chamadas da cota. Com chave inválida a API responde 401, tratado como `falha`. |
 | IBGE | `falha`: o servidor do IBGE derruba conexões vindas do servidor de testes (fora do Brasil). A API seguiu respondendo; a leitura levou 0,02 s enquanto a sincronização esperava o IBGE. Precisa ser confirmado na VM. |
 
-O teste real também mostrou dois problemas, já corrigidos: o endereço antigo da Gupy (`portal.api.gupy.io`) não existe mais, e buscar "afirmativa" trazia sobretudo vagas para PCD, que agora não contam como afirmativas para o Aquenda.
+O teste real também mostrou problemas, já corrigidos: o endereço antigo da Gupy (`portal.api.gupy.io`) não existe mais; buscar "afirmativa" trazia sobretudo vagas para PCD, que agora não contam como afirmativas para o Aquenda; a localização da Adzuna no Brasil vem como `["Brasil", "Sudeste", "Estado de São Paulo", "São Paulo", zona, bairro]` e era lida errado; e o log do httpx gravava a URL com a chave da Adzuna (agora fica abaixo do nível do log).
 
 ## Dados
 
-As respostas usadas nos testes estão em [`tests/fixtures`](tests/fixtures), com a origem de cada uma no README da pasta. São **gravadas das fontes reais em 06/11/2026**: as 6 buscas da Gupy (37 vagas), o estabelecimento do CNES, o 404 do CNES e o 401 da Adzuna. Os casos de borda (vaga sem link, link `javascript:`, formato mudado) e as respostas da Adzuna com resultados e do IBGE foram **montados** no formato documentado de cada fonte, com empresas fictícias ("Empresa Exemplo"), porque não havia chave da Adzuna e o IBGE recusou a conexão.
+As respostas usadas nos testes estão em [`tests/fixtures`](tests/fixtures), com a origem de cada uma no README da pasta. São **gravadas das fontes reais em 06/11/2026**: as 6 buscas da Gupy (37 vagas), a página 1 da Adzuna (50 vagas), o estabelecimento do CNES, o 404 do CNES e o 401 da Adzuna. Os casos de borda (vaga sem link, link `javascript:`, formato mudado) e a resposta do IBGE foram **montados** no formato documentado de cada fonte, com empresas fictícias ("Empresa Exemplo"), porque o IBGE recusou a conexão.
 
 Fontes: [CNES, dados abertos do Ministério da Saúde](https://apidadosabertos.saude.gov.br) · [IBGE Localidades](https://servicodados.ibge.gov.br/api/docs/localidades) · [Adzuna API](https://developer.adzuna.com) · [Prefeitura SP, Transcidadania](https://prefeitura.sp.gov.br/web/lgbti/w/menu/150965) · [TransEmpregos](https://www.transempregos.org) · [Portaria de habilitação citada no pitch](https://www.conass.org.br/?p=2674)
 

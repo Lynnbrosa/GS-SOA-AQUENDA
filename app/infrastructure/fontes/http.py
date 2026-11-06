@@ -10,6 +10,11 @@ from app.config import Settings
 
 log = logging.getLogger(__name__)
 
+# O httpx registra a URL inteira em INFO, e a Adzuna recebe app_key na URL.
+# Abaixo de WARNING nada disso vai para o log da VM.
+for _nome in ("httpx", "httpcore"):
+    logging.getLogger(_nome).setLevel(logging.WARNING)
+
 
 def criar_cliente(settings: Settings) -> httpx.Client:
     return httpx.Client(

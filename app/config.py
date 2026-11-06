@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     adzuna_app_id: str = ""
     adzuna_app_key: str = ""
     adzuna_url: str = "https://api.adzuna.com/v1/api/jobs/br/search"
+    # Cada página é uma chamada na cota da Adzuna. A 1ª (50 vagas) já traz as mais relevantes.
+    adzuna_paginas: int = 1
 
     # Gupy: rota pública que o próprio portal de vagas (portal.gupy.io) usa na busca.
     # Configurável porque não é uma API oficial e já mudou de endereço uma vez.

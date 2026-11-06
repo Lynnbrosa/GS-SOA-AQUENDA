@@ -1,0 +1,1505 @@
+{
+ "results": [
+  {
+   "title": "Pessoa Advogada - Vaga afirmativa para pessoas trans",
+   "description": "Description TozziniFreire Advogados é um escritório full-service com atuação em 55 áreas do Direito Empresarial. Nosso compromisso com a integridade, a responsabilidade social, a diversidade, a equidade e a inclusão faz parte da nossa cultura e orienta nossas práticas de gestão de pessoas. Acreditamos que ambientes diversos promovem inovação, pertencimento e excelência profissional. Como parte da nossa estratégia de inclusão e desenvolvimento de talentos, esta é uma vaga afirmativa destinada ex…",
+   "redirect_url": "https://www.adzuna.com.br/details/5853748294?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "salary_is_predicted": "0",
+   "id": "5853748294",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Venha ser TozziniFreire"
+   },
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTg1Mzc0ODI5NCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.xJvl_ptbPMVGJBncp2SL2hwU98H-O1rIbJ2RCSC39kk",
+   "created": "2026-08-23T12:47:31Z"
+  },
+  {
+   "description": "Description TozziniFreire Advogados é um escritório full-service com atuação em 55 áreas do Direito Empresarial. Nosso compromisso com a integridade, a responsabilidade social, a diversidade, a equidade e a inclusão faz parte da nossa cultura e orienta nossas práticas de gestão de pessoas. Acreditamos que a diversidade de vivências, trajetórias e perspectivas fortalece nosso ambiente de trabalho. Por isso, esta é uma vaga afirmativa destinada exclusivamente a pessoas trans (travestis, mulheres …",
+   "redirect_url": "https://www.adzuna.com.br/details/5853712224?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "Pessoa Analista Administrativa - Vaga afirmativa para pessoas trans",
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTg1MzcxMjIyNCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.WfKDhBT7kB5ahczpTwEQh2U_U778sAEoQFJdUIST2ug",
+   "created": "2026-08-23T12:32:32Z",
+   "id": "5853712224",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Venha ser TozziniFreire"
+   }
+  },
+  {
+   "company": {
+    "display_name": "Edenred",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5917272344",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTE3MjcyMzQ0In0.aBtFTupxIaF0oYGWKI-5L_dzaOqybY7-m8PwtVt_1eg",
+   "created": "2026-10-07T12:17:33Z",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "unknown",
+    "label": "Unknown"
+   },
+   "title": "Projeto Natura de Empregabilidade LGBTI",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "salary_is_predicted": "0",
+   "description": "Take a step forward and let Edenred surprise you. Every day, we deliver innovative solutions to improve the life of millions of people, connecting employees, companies, and merchants all around the world. We know there are hundred ways for you to grow. With us, you will expand your skills in a multicultural, challenging, and dynamic environment. Dare to join Edenred and get ready to thrive in a global company that will offer you endless opportunities. Edenred is all about meritocracy. You come …",
+   "redirect_url": "https://www.adzuna.com.br/details/5917272344?utm_medium=api&utm_source=6cc82263"
+  },
+  {
+   "id": "5897021245",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Serur"
+   },
+   "longitude": -46.65897,
+   "latitude": -23.55691,
+   "category": {
+    "label": "Unknown",
+    "tag": "unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "created": "2026-09-24T12:29:03Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODk3MDIxMjQ1In0.OIoS2zX0fprmWJPpopaZ_dbXCN5E7nYiLElAvXjqmF8",
+   "contract_type": "contract",
+   "title": "Banco de Talentos | Projeto Natura de Empregabilidade LGBTI",
+   "redirect_url": "https://www.adzuna.com.br/details/5897021245?utm_medium=api&utm_source=6cc82263",
+   "description": "Quer fazer parte do Serur? Somos um escritório de advocacia empresarial que une estratégia, conhecimento jurídico e diferentes perspectivas para transformar desafios em oportunidades e gerar resultados para nossos clientes. Acreditamos que a diversidade de pessoas, experiências e ideias fortalece nosso trabalho, amplia nossa visão e contribui para um ambiente mais colaborativo e inovador. Se você participou do Projeto Natura de Empregabilidade LGBTI e quer construir sua trajetória com o Serur, …",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "Consolação, Centro",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo",
+     "Centro",
+     "Consolação"
+    ]
+   }
+  },
+  {
+   "created": "2024-11-11T09:34:13Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNDkzNDQ1Nzk4NSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.g0XjnAK2wC3rl3fJU7GlW6xLVVJ81qtuNWkjBaQ9Cik",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "unknown",
+    "label": "Unknown"
+   },
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Cury Construtora"
+   },
+   "id": "4934457985",
+   "salary_is_predicted": "0",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "redirect_url": "https://www.adzuna.com.br/details/4934457985?utm_medium=api&utm_source=6cc82263",
+   "description": "Description Quem Somos? Você sabia que estamos entre as 10 maiores construtoras do país e que atualmente ocupamos o ranking das 150 empresas do novo mercado? Estamos na bolsa de valores e temos mais de 2 mil Profissionais Cury que diariamente são movidos pelo desafio de realizar o sonho de milhões de brasileiros: a aquisição da casa própria. Somos apaixonados pelo que fazemos, seja na cadeia produtiva ou na comercialização dos empreendimentos. Gostou? Prazer, somos a Cury, venha fazer parte da …",
+   "title": "Banco de Talentos Cury Construtora- Vagas Afirmativas para LGBT"
+  },
+  {
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Assaí Atacadista"
+   },
+   "id": "5761824961",
+   "created": "2026-06-12T18:59:16Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1NzYxODI0OTYxIn0.lwV3RXPRcZRO7xdlUVnCBaUJgUrqUjeyWrWdeG2kWlc",
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "title": "Banco de Talentos para pessoas Trans (Brasil)",
+   "salary_is_predicted": "0",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "redirect_url": "https://www.adzuna.com.br/details/5761824961?utm_medium=api&utm_source=6cc82263",
+   "description": "Description VemSerAssaí  No Assaí Atacadista , acreditamos que a diversidade é uma das nossas maiores forças. Trabalhamos para construir um ambiente inclusivo, seguro e respeitoso, onde todas as pessoas tenham oportunidades de desenvolvimento . Este Banco de Talentos é exclusivo para Pessoas Trans e tem como objetivo promover o acesso às nossas oportunidades, contribuindo para que nossos times reflitam, de forma genuína, a diversidade da sociedade. O que valorizamos: Valorizamos habilidades, co…"
+  },
+  {
+   "title": "BANCO DE TALENTOS - Agente De Atendimento Dedicado À Comunidade LGBT",
+   "salary_min": 19512,
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5864391581?utm_medium=api&utm_source=6cc82263",
+   "description": "Área e especialização profissional: Telemarketing - Telemarketing / Call Center Ativo Senioridade: Consultor Local de trabalho: São Paulo, SP Regime de contratação de tipo Efetivo – CLT Jornada Período Integral MISSÃO DO CARGO: Realizar vendas por telefone. O QUE BUSCAMOS Pessoas desejam trabalhar com vendas comissionadas home office. Buscamos pessoas engajadas e comprometidas com o resultado e com a qualidade. Necessário possuir autogerenciamento e flexibilidade para lidar com pressão por resu…",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "HOME AGENT"
+   },
+   "id": "5864391581",
+   "salary_max": 36000,
+   "created": "2026-09-01T07:45:41Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTg2NDM5MTU4MSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.JrDXbk35F1a6v3kbfXQ0stXbFY0PGyZENN121KFES70",
+   "contract_type": "permanent",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   }
+  },
+  {
+   "title": "Banco de Talentos Exclusivo para Pessoas LGBTQIAPN",
+   "description": "Description Acreditamos que todas as pessoas merecem ter o seu lugar no mundo e para isso desafiamos o impossível! Somos um time de gente boa no que faz e que é verdadeiramente parceira. Estimulamos o crescimento como um todo e valorizamos tanto o trabalho em equipe como o individual, pois acreditamos que é essa combinação que gera valor no longo prazo. Trabalhamos com determinação e temos compromisso com a entrega. Por isso, obstáculos não nos impedem de buscar resultados. Os desafios nos move…",
+   "redirect_url": "https://www.adzuna.com.br/details/5270294793?utm_medium=api&utm_source=6cc82263",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "salary_is_predicted": "0",
+   "id": "5270294793",
+   "company": {
+    "display_name": "Construtora Tenda",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "unknown",
+    "label": "Unknown"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1MjcwMjk0NzkzIn0.CEO3v_6Jw_D4vZqggT49DlCDfDDkVN9kx99PGEahIdQ",
+   "created": "2025-06-26T17:10:59Z"
+  },
+  {
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "created": "2026-07-23T19:01:53Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODEyODk3MzM3In0.Oh9r2JjfKFKD9Zps5FJ2d0opqdxAYaBRB_R5fUkD-io",
+   "id": "5812897337",
+   "company": {
+    "display_name": "Spdm/Pais",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5812897337?utm_medium=api&utm_source=6cc82263",
+   "description": "Description Banco de Talentos de Vaga Afirmativa de Aprendiz para Pessoas Transgênero. O programa de aprendizagem tem como principal objetivo disponibilizar oportunidades para que Jovens ingressem no mercado de trabalho. Responsibilities Realizar rotinas administrativas de acordo com a necessidade da área; Emitir correspondências de acordo com os padrões estabelecidos pela Unidade; Receber, organizar e arquivar documentos; Realizar atendimento telefônico e o público presencialmente; Auxiliar os…",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "title": "Aprendiz - Vaga Afirmativa Para Pessoas Trans"
+  },
+  {
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": "Description Banco de Talentos de Vaga Afirmativa para Pessoas Transgênero. Faça a sua inscrição que iremos direcionar para as vagas em aberto de acordo com as suas qualificações! Responsibilities Prerequisites Ter 18 anos completos; Formação conforme área de interesse; Experiência de no mínimo 6 meses na área de atuação; Experiences Salário  Benefícios; Escala e Horário de trabalho: A definir Local de trabalho: Regiões Sul, Leste e Norte (Perus e Pirituba) de São Paulo/SP, Diadema/SP e Santo An…",
+   "redirect_url": "https://www.adzuna.com.br/details/5709721602?utm_medium=api&utm_source=6cc82263",
+   "title": "Banco De Talentos - Vaga Afirmativa Para Pessoas Trans",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1NzA5NzIxNjAyIn0.bTtZGEV5jjMH3Qvtbz57uMOjACqfSSQoDd-stLXVjko",
+   "created": "2026-04-24T17:55:29Z",
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Spdm/Pais"
+   },
+   "id": "5709721602"
+  },
+  {
+   "title": "Vaga P: LGBT FINANCEIRA (CALL CENTER) - Prox M. Barra Funda,",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5848589004?utm_medium=api&utm_source=6cc82263",
+   "description": "Área e especialização profissional: Telemarketing - Telemarketing / Call Center Ativo Senioridade: Operacional Número de vagas: 30 Local de trabalho: São Paulo, SP Regime de contratação de tipo Efetivo – CLT Jornada Período Integral Para começo IMEDIATO! Ótimo ambiente de trabalho, sem aquela loucura do dia a dia, metas abusivas e cobranças por gestores despreparados! Venha fazer parte do Grupo JJ! Estamos em busca de profissionais para atuar como Agente de Atendimento focado em vendas de consi…",
+   "company": {
+    "display_name": "Grupo J J",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5848589004",
+   "created": "2026-08-19T13:27:17Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODQ4NTg5MDA0In0.Hr2pN4J0GdIbw8zS9kuGOWGv8yE4N7VgUHn-m29Ifgw",
+   "contract_type": "permanent",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas em Atendimento ao Cliente",
+    "tag": "customer-services-jobs"
+   }
+  },
+  {
+   "title": "Vagas afirmativas LGBTQIAPN",
+   "salary_is_predicted": "0",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo",
+     "Zona Sul",
+     "Itaim Bibi"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "Itaim Bibi, Zona Sul"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "redirect_url": "https://www.adzuna.com.br/details/5270311167?utm_medium=api&utm_source=6cc82263",
+   "description": "Description Trabalhe com a gente: Somos a Comgás, a maior distribuidora de gás encanado do Brasil! Você já ousou imaginar o futuro? Mais do que imaginar, acreditamos em construir o que esperamos do amanhã. Nossa história começou em 1872, do óleo vegetal, evoluímos para o gás de carvão, para o gás de Nafta e depois para o gás natural. E seguimos desenvolvendo a infraestrutura das cidades, levando o conforto e a segurança do gás encanado, valorizando as pessoas, a sociedade e nossos clientes. Bus…",
+   "longitude": -46.68268,
+   "company": {
+    "display_name": "Comgás",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "latitude": -23.61479,
+   "id": "5270311167",
+   "created": "2025-06-26T17:22:57Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1MjcwMzExMTY3In0.Swwpa0ZxaRRFSV2I-VYL3Lg0dvN5Rz2YHrgCpBHHZ9w",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "unknown",
+    "label": "Unknown"
+   }
+  },
+  {
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "created": "2026-08-15T12:14:12Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODQzMTU3MDQzIn0.wgIz-3jSO96OxVKP2hOy-vSWK-Tj65f9xdAGEvtrBkw",
+   "id": "5843157043",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Mais Diversidade"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5843157043?utm_medium=api&utm_source=6cc82263",
+   "description": "Description A Mais Diversidade é a maior consultoria de diversidade e inclusão da América Latina. Aliamos grande experiência de mercado a sólido conhecimento acadêmico para oferecer soluções completas em diversidade e inclusão. Saiba mais das nossas soluções: https://maisdiversidade.com.br/ Banco de talentos direcionado para pessoas LGBTQIAPN Acreditamos que a verdadeira inovação nasce quando as pessoas têm segurança psicológica para serem exatamente quem são. Sabemos que o mercado de trabalho …",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "title": "Banco de Talentos - Pessoas LGBTQIA"
+  },
+  {
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTkzODEwMTEyMCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.XjCPbmxPBkFBJrvrGvLhYnGaonxfvq9E6eIcZxYuv84",
+   "created": "2026-10-22T12:33:34Z",
+   "id": "5938101120",
+   "company": {
+    "display_name": "AFNE",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "description": "Detalhes da vaga Vem ser AFNE - Associação Filantrópica Nova Esperança! Estamos com Edital aberto para provimento de cadastro reserva para o cargo de FONOAUDIÓLOGO CR POP TT – Centro de Referência de Saúde Integral para a População de Travestis e Transexuais Região Central. (EDITAL: 101/2026) Responsabilidades: • Promover o cuidado fonoaudiológico integral de pessoas trans e travestis, com foco na avaliação, prevenção e acompanhamento das questões relacionadas à comunicação e à voz, ampliando a…",
+   "redirect_url": "https://www.adzuna.com.br/details/5938101120?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "Fonoaudiólogo Cr Pop Tt"
+  },
+  {
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTY5NDg5NDQ0MSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.os4b8WCaBeyHz3kOQ06-yAx5UtYXlt6Q9g2RuArZOHM",
+   "created": "2026-04-09T17:59:00Z",
+   "id": "5694894441",
+   "company": {
+    "display_name": "Stormx",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "description": "Description Banco de Talentos LGBTQIAPN Da soma de todas as vozes que compõem a Stormx nascem nossos valores e visão de mundo. Acreditamos no respeito à diversidade e à inclusão, seja cultural, étnica, religiosa, sexual, raça, cor, gênero e as demais formas de integração social e promoção ao bem-estar de nossos colaboradores. Se você se identifica, este espaço é para você! Somos a Stormx, uma martech que escala operações de marketing digital. Desenvolvemos nossas próprias ferramentas de automaç…",
+   "redirect_url": "https://www.adzuna.com.br/details/5694894441?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "Banco de Talentos LGBTQIAPN"
+  },
+  {
+   "description": "If you see technology as a way to smooth your path in life, our team does too: Your Path, Our Journey. We believe in technology that connects talented people who embrace diversity to create and share paths we don't even know about (yet!). We work to generate value not only for our users but, above all, for the communities we serve and for society as a whole, making every day better for everyone with mobility and delivery services (99) or digital payments (99Pay). To make life easier for million…",
+   "redirect_url": "https://www.adzuna.com.br/details/4156876782?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "Consolação, Centro",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo",
+     "Centro",
+     "Consolação"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "Banco de Talentos - LGBTQIAPN",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI0MTU2ODc2NzgyIn0.LcNQIdQeA1OOAvbCeeIXAFYWVBbeY_XJAr-e9R3aXnk",
+   "created": "2023-06-17T09:47:39Z",
+   "id": "4156876782",
+   "latitude": -23.56243,
+   "longitude": -46.65756,
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "DiDi Global"
+   }
+  },
+  {
+   "title": "Banco de Talentos - LGBTQIA",
+   "redirect_url": "https://www.adzuna.com.br/details/5943600266?utm_medium=api&utm_source=6cc82263",
+   "description": "Descrição Este é o Banco de Talentos da Reponto, exclusivo para pessoas LGBTQIA Cadastre aqui seu currículo e fique atento ao seu Whatsapp, que é o nosso canal de comunicação oficial. Requisitos Requisitos Exclusivo para Pessoas LGBTQIA",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "id": "5943600266",
+   "company": {
+    "display_name": "Reponto",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "created": "2026-10-27T13:23:10Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTQzNjAwMjY2In0.dxAL7unZpqivIoam11nnhgYuQ4TxJ0vVP78Vp1coTkA"
+  },
+  {
+   "id": "5343630020",
+   "company": {
+    "display_name": "Atento",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTM0MzYzMDAyMCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.G85Cq6-JJyC9ELP2Y7A-9HVmydYiysLDWWhOCyyRu1g",
+   "created": "2025-08-08T08:47:49Z",
+   "title": "Banco de Talentos - Pessoas Trans",
+   "description": "Description Nós da Atento oferecemos oportunidades de vagas para as áreas de atendimento e convidamos você a se candidatar no nosso banco de talentos! Temos o compromisso com a inclusão e a diversidade e por isso, geramos oportunidades iguais a todos!  Procuramos profissionais comprometidos, que adorem desafios, que gostem de se relacionar com pessoas e que saibam a importância de um bom atendimento ao cliente! Se identificou? Então venha fazer parte deste time de vencedores, aqui no Brasil já …",
+   "redirect_url": "https://www.adzuna.com.br/details/5343630020?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "salary_is_predicted": "0"
+  },
+  {
+   "company": {
+    "display_name": "JHSF",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5270321535",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTI3MDMyMTUzNSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.yN4Etzb5yCC_tHpXipowWaKkdDbooguWOeT2N8HmPAY",
+   "created": "2025-06-26T17:30:29Z",
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "title": "Banco de Talentos Diversidade e Inclusão | LGBTQIA",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": "Description Acreditamos no poder da Diversidade e Inclusão para continuar atuando de forma expressiva nos mercados de shopping centers, fashion retail, hospitalidade, gastronomia e desenvolvimento imobiliário, e para isso o Banco de Talentos de Diversidade e Inclusão para pessoas da comunidade LGBTQIA nos dará suporte para atrair, recrutar e desenvolver a representatividade em nossas áreas. A JHSF valoriza a diversidade e está empenhada a promover mais oportunidades em busca da equidade. Trabal…",
+   "redirect_url": "https://www.adzuna.com.br/details/5270321535?utm_medium=api&utm_source=6cc82263"
+  },
+  {
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas em Contabilidade e Finanças",
+    "tag": "accounting-finance-jobs"
+   },
+   "created": "2026-08-02T12:26:42Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTgyNTc3MTg0NSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.aZ7hjYgIehiYQdxWynNNq1qK_KDlKe8X-hb4WlAj6bo",
+   "id": "5825771845",
+   "company": {
+    "display_name": "Spdm/Pais",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5825771845?utm_medium=api&utm_source=6cc82263",
+   "description": "Description As Unidade de Pronto Atendimento são definidas como estabelecimentos de saúde de complexidade intermediária entre as Unidades Básicas de Saúde/Estratégia Saúde da Família (UBS/ESF) e a Rede Hospitalar, devendo compor, junto com estas, uma rede organizada de atenção às urgências, em conformidade com as diretrizes da Política Nacional de Atenção às Urgências. Funcionam 24 horas e prestam atendimento médico de urgência e emergência, adulto e pediátrico, com a possibilidade de inserção …",
+   "salary_is_predicted": "0",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "title": "Auxiliar Administrativo - Vaga Afirmativa Para Pessoas Transgênero E Pessoas Não Binárias"
+  },
+  {
+   "description": "Se para você a tecnologia existe para melhorar o caminho da vida, para o nosso time também: Seu Caminho, Nossa Jornada. Acreditamos na tecnologia que conecta gente boa no que faz e que vive a diversidade para criar e compartilhar até os caminhos que a gente (ainda!) nem sabe quais são. Trabalhamos para gerar valor não só para os nossos usuários, mas, sobretudo, para as comunidades que servimos e toda a sociedade, tornando a vida das pessoas melhor com serviços que facilitem seu dia a dia - seja…",
+   "redirect_url": "https://www.adzuna.com.br/details/5938865741?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "Consolação, Centro",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo",
+     "Centro",
+     "Consolação"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "CRM Intern / LGBTQIAPN, Black and pardo",
+   "category": {
+    "label": "Outras vagas",
+    "tag": "other-general-jobs",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTkzODg2NTc0MSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.lC61ivUYyoDp83tEKQ7MHVxi5_l-ZLMz_yfM0_wP4so",
+   "created": "2026-10-23T02:24:32Z",
+   "id": "5938865741",
+   "latitude": -23.56243,
+   "longitude": -46.65756,
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "DiDi Global"
+   }
+  },
+  {
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTk0OTg2NjcyNSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.uNptuvrGODFQhbfDdLHe1e9iBAGAyNppSr32ivgYxfw",
+   "created": "2026-11-01T17:35:00Z",
+   "category": {
+    "tag": "it-jobs",
+    "label": "Vagas em Tecnologia Informática",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "UNISYS BRASIL"
+   },
+   "id": "5949866725",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "salary_is_predicted": "0",
+   "description": "Área e especialização profissional: Informática, TI, Telecomunicações - Suporte Técnico Local de trabalho: São Paulo, SP What success looks like in this role: We Believe in Better! | Nós acreditamos no melhor!Somos uma empresa global de tecnologia da informação (B2B) que cria soluções de alto desempenho e centradas em segurança que podem ajudar a mudar o mundo. Melhorar a vida das pessoas por meio de tecnologia avançada segura e confiável é nossa visão.Na Unisys, acreditamos no melhor! Aqui, vo…",
+   "redirect_url": "https://www.adzuna.com.br/details/5949866725?utm_medium=api&utm_source=6cc82263",
+   "title": "U-Pride | Banco De Talentos Para (Pessoas LGBTQIAPN Em Tecnologia)"
+  },
+  {
+   "category": {
+    "label": "Vagas em Atendimento ao Cliente",
+    "tag": "customer-services-jobs",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "created": "2026-09-10T22:26:48Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTg3OTExMjA4MCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.aAqIybQMpj66-eeFKM4wbU8rBzdKOFYiwkaiSXW5M7Y",
+   "contract_type": "contract",
+   "id": "5879112080",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Jobcenter"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5879112080?utm_medium=api&utm_source=6cc82263",
+   "description": "Área e especialização profissional: Telemarketing - Telemarketing / Call Center Receptivo Senioridade: Operacional Número de vagas: 78 Local de trabalho: São Paulo, SP Regime de contratação de tipo Temporário Jornada Parcial manhãs Somos a Jobcenter Consultoria de Recursos Humanos e estamos auxiliando nosso cliente a encontrar uma pessoa Operador de Teleatendimento I (Afirmativa para pessoas Trans) Atividades a desempenhar: Atendimento telefônico e/ou chat a segurados e prestadores; atuar em ce…",
+   "salary_is_predicted": "0",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "title": "Operador De Teleatendimento I - Afirmativa Para Pessoas Trans"
+  },
+  {
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "salary_is_predicted": "0",
+   "description": "Description Na Vivo, acreditamos na força da diversidade e valorizamos o potencial de cada pessoa. Esta oportunidade faz parte de uma iniciativa afirmativa para pessoas Trans, reforçando nosso compromisso com a construção de um ambiente cada vez mais inclusivo, respeitoso e representativo. Buscamos profissionais que queiram fazer a diferença, contribuindo para uma experiência positiva dos clientes e para os resultados do negócio. Aqui, você poderá atuar em diferentes áreas, como atendimento, op…",
+   "redirect_url": "https://www.adzuna.com.br/details/5917290490?utm_medium=api&utm_source=6cc82263",
+   "title": "Banco de Talentos Exclusiva para Pessoas Trans - Vagas Brasil",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTE3MjkwNDkwIn0.LgVnLDHoJslYu7NpLb6ywHc8QJRo3yzdPZMI1awlpfs",
+   "created": "2026-10-07T12:32:43Z",
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Vivo"
+   },
+   "id": "5917290490"
+  },
+  {
+   "created": "2026-08-09T12:34:57Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODM0Nzk4ODI0In0.SXCYRVepssVBEVTqr-KNhyvcFLg1s0wsHrnk-1Z91tc",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "company": {
+    "display_name": "Via de Acesso",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5834798824",
+   "salary_is_predicted": "0",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "redirect_url": "https://www.adzuna.com.br/details/5834798824?utm_medium=api&utm_source=6cc82263",
+   "description": "Description O Instituto Via de Acesso – Ruy Leal, é uma entidade sem fins lucrativos, que tem como finalidade principal ações sociais de caráter educacional, filantrópico e de assistência social, relacionados à promoção de capacitação profissional gratuita e à inclusão de jovens no mundo do trabalho, promovendo igualdade e equidade nas oportunidades. Desenvolvemos ações sintonizadas com as exigências do mundo globalizado, de forma a promover relações duradouras entre empresas e escolas, facilit…",
+   "title": "BANCO DE TALENTOS - VAGAS AFIRMATIVAS: Pessoas pretas, LGBTQIA, PCD"
+  },
+  {
+   "title": "Analista De Eventos | Vaga Afirmativa Para Público LGBTQIAPN Em - - 71258 - Recrutamento Aberto",
+   "redirect_url": "https://www.adzuna.com.br/details/5952635691?utm_medium=api&utm_source=6cc82263",
+   "description": "ATRIBUIÇÕES: Será um Analista de Eventos que irá definir e avaliar os fornecedores. Acompanhará as montagens e desmontagens. Assegurar toda qualidade dos serviços prestados e satisfação do cliente. Também realizará as tarefas de analisar os resultados que um evento traz. Participar ativamente dos processos de organização e execução assim que a venda do evento é realizada. Fará a ponte entre o comercial e o operacional da empresa. Se você se identificou e possui as habilidades acima, não deixe d…",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "id": "5952635691",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "created": "2026-11-04T03:00:43Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTk1MjYzNTY5MSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.eQzXpmIyaGDbGOcC3fpvg8zHtdeCotAkGiA2bF4AnUI"
+  },
+  {
+   "redirect_url": "https://www.adzuna.com.br/details/5952927370?utm_medium=api&utm_source=6cc82263",
+   "description": "Será um Analista de Eventos que irá definir e avaliar os fornecedores. Acompanhará as montagens e desmontagens. Assegurar toda qualidade dos serviços prestados e satisfação do cliente. Também realizará as tarefas de analisar os resultados que um evento traz. Participar ativamente dos processos de organização e execução assim que a venda do evento é realizada. Fará a ponte entre o comercial e o operacional da empresa. Se você se identificou e possui as habilidades acima, não deixe de realizar se…",
+   "salary_is_predicted": "0",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "title": "ANALISTA DE EVENTOS | VAGA AFIRMATIVA PARA PÚBLICO LGBTQIAPN EM SÃO PAULO - SP - 71258",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "created": "2026-11-04T10:08:54Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTUyOTI3MzcwIn0.2gALjsvoOBpRcjiK2xIY5jVapPXh3yVJlV_Fl3bRiPc",
+   "id": "5952927370",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company"
+   }
+  },
+  {
+   "category": {
+    "label": "Unknown",
+    "tag": "unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "created": "2025-06-26T17:39:40Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1MjcwMzM5NTQwIn0.DNAPd40caRw9WU8zrLNd0WmDu5RVOrEg4ILbh-79n44",
+   "id": "5270339540",
+   "company": {
+    "display_name": "JHSF",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5270339540?utm_medium=api&utm_source=6cc82263",
+   "description": "Description Não encontrou uma vaga com o seu perfil, fique tranquilo. Se inscreva em nosso banco de talentos e caso surja uma oportunidade, faremos contato. Aqui somos comprometidos com resultados, buscamos aprimoramento constante de forma criativa e inovadora e, sabemos que profissionais com vontade de crescer, somarão em nossas entregas. Prezamos pelo trabalho em equipe e valorizamos um time dedicado, que aceita grandes desafios e tenha muita energia. Nosso time trabalha de forma ética e ágil…",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "title": "Banco de Talentos | JHSF"
+  },
+  {
+   "id": "5848323638",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "SulAmérica"
+   },
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "created": "2026-08-19T12:05:07Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODQ4MzIzNjM4In0.49lnxU1iDZlrerC63EzyXdFZsu07rFxQzpI0_2l-Ypg",
+   "title": "Operador de Atendimento - Saúde",
+   "redirect_url": "https://www.adzuna.com.br/details/5848323638?utm_medium=api&utm_source=6cc82263",
+   "description": "Detalhes da vaga Para o match perfeito acontecer precisa de PESSOAS, com as mais diversas experiências e pontos de vista, para que possamos continuar evoluindo enquanto empresa.Por isso, aqui na SulAmérica, incentivamos a candidatura de pessoas de todas as raças/etnias, orientações sexuais, identidades de gênero, gerações, com ou sem deficiência, para todas as nossas vagas. Afinal, as nossas diferenças é o que nos complementam!LGBTI PessoasNegras PcD 50 Gerações PessoasComDeficiênciaComo será o…",
+   "salary_is_predicted": "0",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job"
+  },
+  {
+   "id": "5933514169",
+   "company": {
+    "display_name": "Monks",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas em Criação e Design",
+    "tag": "creative-design-jobs"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTkzMzUxNDE2OSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.tdQE8ix9UB4NzF7ph23Th00vokooPLCxJF_vxLFCXl4",
+   "created": "2026-10-18T13:42:29Z",
+   "title": "[Soul Monks] Jovem Aprendiz | Vaga Afirmativa para Pessoas Trans & Não-binárias | São Paulo",
+   "description": "Please note that we will never request payment or bank account information at any stage of the recruitment process. As we continue to grow our teams, we urge you to be cautious of fraudulent job postings or recruitment activities that misuse our company name and information. Please protect your personal information during any recruitment process. While Monks may contact potential candidates via LinkedIn, all applications must be submitted through our official website ( monks.com/careers ). Desc…",
+   "redirect_url": "https://www.adzuna.com.br/details/5933514169?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "salary_is_predicted": "0"
+  },
+  {
+   "salary_min": 45420,
+   "title": "Analista Financeiro Júnior - Trans. Financeiras I Contabilidade I 11533941",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": " Analista Financeiro Júnior – Contabilidade  Local: Vila Olímpia – São Paulo/SP  Modelo: Híbrido (3 dias presenciais e 2 dias home office)  Contrato: CLT Efetivo  Horário: Segunda a sexta, das 8h às 18h (horário flexível) Principais atividades: Realizar lançamentos, reclassificações e conciliações contábeis; Executar amortizações de despesas e contabilização da folha de pagamento; Apoiar o fechamento contábil mensal e anual; Conferir saldos contábeis e elaborar controles e relatórios; Apoiar ob…",
+   "redirect_url": "https://www.adzuna.com.br/details/5789390929?utm_medium=api&utm_source=6cc82263",
+   "contract_time": "full_time",
+   "company": {
+    "display_name": "Cuprh",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5789390929",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTc4OTM5MDkyOSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.7zd8UyVj5dPgzj2s-R6kp7b4hSARRb7C2bIOPyvMF9M",
+   "created": "2026-07-05T18:53:49Z",
+   "salary_max": 45420,
+   "category": {
+    "tag": "accounting-finance-jobs",
+    "label": "Vagas em Contabilidade e Finanças",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   }
+  },
+  {
+   "salary_min": 21660,
+   "title": "Telemarketing Seg À Sexta - VENDAS ATIVO - PROX METRO B FUNDA",
+   "description": "Área e especialização profissional: Telemarketing - Telemarketing / Call Center Ativo Senioridade: Operacional Número de vagas: 40 Local de trabalho: São Paulo, SP Regime de contratação de tipo Efetivo – CLT Jornada Período Integral ANTES DE MANDAR QUALQUER MENSAGEM, LEIA TUDO! Não vendemos cursos, contrato CLT. Para começo IMEDIATO, mande apenas seu currículo se estiver disponível para começar! Vendas de empréstimo consignados por ligação! Ótimo ambiente de trabalho, sem aquela loucura do dia …",
+   "redirect_url": "https://www.adzuna.com.br/details/5916879513?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "salary_is_predicted": "0",
+   "id": "5916879513",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Grupo J J"
+   },
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "contract_type": "permanent",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTkxNjg3OTUxMyIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.IC6wr1ZLJ1eO-zmUSHnLVVnt4rPLjKntEEOgM71Ke60",
+   "created": "2026-10-07T08:10:55Z",
+   "salary_max": 33696
+  },
+  {
+   "contract_time": "full_time",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Carrefour & Sam'S"
+   },
+   "id": "5881136496",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTg4MTEzNjQ5NiIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.WtzX_Vbaoyw7XGdNx8dajLSrE7-JNUE1O7G4WD92DUA",
+   "created": "2026-09-12T12:53:55Z",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "title": "Açougueiro Carrefour Bairro Morumbi -Sp",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 150 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. DO DISCURSO À PRÁTICA Principais Responsabilidades Receber mercadorias de açougue; Fazer verificações de qualidade dos produtos e equipamentos; Preparar produtos para comercialização de acordo com o sortimento; Manip…",
+   "redirect_url": "https://www.adzuna.com.br/details/5881136496?utm_medium=api&utm_source=6cc82263"
+  },
+  {
+   "category": {
+    "label": "Unknown",
+    "tag": "unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTQ0NzMzMzY4In0.XYxQJyNtWmAitCiD83GVX4kFlwZoN-A0b9TqelCGo2Y",
+   "contract_type": "contract",
+   "created": "2026-10-28T13:29:25Z",
+   "id": "5944733368",
+   "company": {
+    "display_name": "Kasznar Leonardos",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "description": "Detalhes da vaga Buscamos profissionais que sejam protagonistas de suas carreiras, que gostem de se sentir desafiados intelectualmente, sejam comprometidos com a qualidade, tenham iniciativa e vontade de transformar a si mesmos para ser fonte de inspiração positiva das transformações ao seu redor, atuando em equipe de forma colaborativa e integrada.Estimulamos sempre a candidatura de pessoas que fazem parte do Programa de Diversidade e Inclusão da empresa: negros, mulheres, pessoas com deficiên…",
+   "redirect_url": "https://www.adzuna.com.br/details/5944733368?utm_medium=api&utm_source=6cc82263",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "salary_is_predicted": "0",
+   "title": "Estágio em Direito | Antipirataria"
+  },
+  {
+   "company": {
+    "display_name": "SulAmérica",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5944729405",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTk0NDcyOTQwNSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.YmeBTUhsVSQ4INJQEnvm5ZcyI5kzjnIhcXh-1ZQMH7g",
+   "created": "2026-10-28T13:26:15Z",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "title": "Analista de Gestão de Sinistros Jr",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": "Detalhes da vaga Para o match perfeito acontecer precisa de PESSOAS, com as mais diversas experiências e pontos de vista, para que possamos continuar evoluindo enquanto empresa.Por isso, aqui na SulAmérica, incentivamos a candidatura de pessoas de todas as raças/etnias, orientações sexuais, identidades de gênero, gerações, com ou sem deficiência, para todas as nossas vagas. Afinal, as nossas diferenças é o que nos complementam!LGBTI PessoasNegras PcD 50 Gerações PessoasComDeficiênciaO que busca…",
+   "redirect_url": "https://www.adzuna.com.br/details/5944729405?utm_medium=api&utm_source=6cc82263"
+  },
+  {
+   "created": "2026-07-28T12:35:19Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODE4NDY0NDE2In0.Uv6pSpaXkgLlFyxx1ExB-1kAWceB_JXI1TngsYF_gwQ",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "unknown",
+    "label": "Unknown"
+   },
+   "company": {
+    "display_name": "Carrefour & Sam'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "contract_time": "full_time",
+   "id": "5818464416",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5818464416?utm_medium=api&utm_source=6cc82263",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 150 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. Aqui no Carrefour nossa cultura está conectada a 5 pilares que são os nossos i4Cs! Eles impulsionam nossa jornada de transformação e são a forma de ser e agir dentro do grupo. Inclusão: Acreditamos que a Inclusão dev…",
+   "title": "Operador De Caixa - Sam'S Club São Paulo (Radial Leste)"
+  },
+  {
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 150 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. DO DISCURSO À PRÁTICA Principais Responsabilidades Receber mercadorias de açougue; Fazer verificações de qualidade dos produtos e equipamentos; Preparar produtos para comercialização de acordo com o sortimento; Manip…",
+   "redirect_url": "https://www.adzuna.com.br/details/5880196273?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "AÇOUGUEIRO CARREFOUR BAIRRO MORUMBI -SP",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas em Vendas",
+    "tag": "sales-jobs"
+   },
+   "contract_type": "permanent",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODgwMTk2MjczIn0.9sMQrFRFs5GrsnsUVbB6jdTorEnmenP8MZ32pZ0hH-A",
+   "created": "2026-09-11T19:39:11Z",
+   "id": "5880196273",
+   "company": {
+    "display_name": "CARREFOUR & SAM'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   }
+  },
+  {
+   "contract_time": "full_time",
+   "company": {
+    "display_name": "Carrefour & Sam'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5620799704",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTYyMDc5OTcwNCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.BkW59OScaAiz_fN6NY-_EmxGYGyUIDUG8dMX4jUNt3w",
+   "created": "2026-02-08T17:32:41Z",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "manufacturing-jobs",
+    "label": "Vagas no ramo Industrial"
+   },
+   "title": "Operador De Loja | Carrefour Shopping Jardim Pamplona",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 130 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. No Carrefour, trabalhamos diariamente a cultura do respeito e da equidade. A valorização da diversidade é um compromisso para o Carrefour, por isso, encorajamos a candidatura e damos oportunidade a profissionais dive…",
+   "redirect_url": "https://www.adzuna.com.br/details/5620799704?utm_medium=api&utm_source=6cc82263"
+  },
+  {
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "salary_is_predicted": "0",
+   "description": " Analista Financeiro Júnior – Contas a Pagar  Local: Vila Olímpia – São Paulo/SP  Modelo: Híbrido (3 dias presenciais e 2 dias home office)  Contrato: CLT Efetivo  Horário: Segunda a sexta, das 8h às 18h (horário flexível) Principais atividades: Executar a rotina de Contas a Pagar , incluindo programação e processamento de pagamentos; Realizar conciliação de fornecedores e baixas contábeis; Gerar remessas bancárias (CNAB) e acompanhar os pagamentos; Processar pagamentos via TED, PIX, boletos e …",
+   "redirect_url": "https://www.adzuna.com.br/details/5789387588?utm_medium=api&utm_source=6cc82263",
+   "salary_min": 45420,
+   "title": "Analista Financeiro Júnior I Trans. Financeiras I Contas a Pagar I 11533472",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTc4OTM4NzU4OCIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.KDENIdg-0GUTd2Ktavz5B3HWhcmywN4nD_drpuIAhjs",
+   "salary_max": 45420,
+   "created": "2026-07-05T18:50:44Z",
+   "category": {
+    "label": "Vagas em Contabilidade e Finanças",
+    "tag": "accounting-finance-jobs",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "contract_time": "full_time",
+   "company": {
+    "display_name": "Cuprh",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5789387588"
+  },
+  {
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1Njc2MjcyNjMwIn0.-IVjGR7UWYu4TaJuvJQdUfOeDc1aZvUgM-ALwasyAuw",
+   "created": "2026-03-23T17:30:09Z",
+   "category": {
+    "label": "Vagas em Contabilidade e Finanças",
+    "tag": "accounting-finance-jobs",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "contract_time": "full_time",
+   "company": {
+    "display_name": "CARREFOUR & SAM'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5676272630",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "salary_is_predicted": "0",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 130 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. No Carrefour, trabalhamos diariamente a cultura do respeito e da equidade. A valorização da diversidade é um compromisso para o Carrefour, por isso, encorajamos a candidatura e damos oportunidade a profissionais dive…",
+   "redirect_url": "https://www.adzuna.com.br/details/5676272630?utm_medium=api&utm_source=6cc82263",
+   "title": "Repositor De Mercadoria | Carrefour Casa Verde"
+  },
+  {
+   "contract_time": "full_time",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "CARREFOUR & SAM'S"
+   },
+   "id": "5740040815",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTc0MDA0MDgxNSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.RI6F5BufG4UMKLpXNQEzvfiYA9ciJtLclNEJCv_C4aE",
+   "created": "2026-05-24T18:05:40Z",
+   "category": {
+    "label": "Unknown",
+    "tag": "unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "title": "Operador De Loja Multicanais - Sam'S Club Bom Retiro",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 150 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. Aqui no Carrefour nossa cultura está conectada a 5 pilares que são os nossos i4Cs! Eles impulsionam nossa jornada de transformação e são a forma de ser e agir dentro do grupo. Inclusão: Acreditamos que a Inclusão dev…",
+   "redirect_url": "https://www.adzuna.com.br/details/5740040815?utm_medium=api&utm_source=6cc82263"
+  },
+  {
+   "id": "5579713649",
+   "company": {
+    "display_name": "CARREFOUR & SAM'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "contract_time": "full_time",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "created": "2026-01-11T16:24:38Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTU3OTcxMzY0OSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.-JSWlzSeyaWhBDIKk9vU7_oWFy4pkNf3lOGPjtu5PwY",
+   "title": "Operador (A) Caixa - Posto Combustível - Tietê - Sp",
+   "redirect_url": "https://www.adzuna.com.br/details/5579713649?utm_medium=api&utm_source=6cc82263",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 130 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. No Carrefour, trabalhamos diariamente a cultura do respeito e da equidade. A valorização da diversidade é um compromisso para o Carrefour, por isso, encorajamos a candidatura e damos oportunidade a profissionais dive…",
+   "salary_is_predicted": "0",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job"
+  },
+  {
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "salary_is_predicted": "0",
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 130 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. No Carrefour, trabalhamos diariamente a cultura do respeito e da equidade. A valorização da diversidade é um compromisso para o Carrefour, por isso, encorajamos a candidatura e damos oportunidade a profissionais dive…",
+   "redirect_url": "https://www.adzuna.com.br/details/5489232855?utm_medium=api&utm_source=6cc82263",
+   "title": "Caixa Posto- Posto Tatuape",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJpIjoiNTQ4OTIzMjg1NSIsInMiOiJ0RUFEVkpiWjhSRzR2cjNVUmRTTkt3In0.8uVLycLyqsTm23spPJvT7JKn9ynna3QeeKQ4HCdS604",
+   "created": "2025-11-10T08:36:25Z",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Unknown",
+    "tag": "unknown"
+   },
+   "contract_time": "full_time",
+   "company": {
+    "display_name": "Carrefour & Sam'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "id": "5489232855"
+  },
+  {
+   "id": "5852679431",
+   "contract_time": "full_time",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Carrefour & Sam'S"
+   },
+   "category": {
+    "label": "Unknown",
+    "tag": "unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODUyNjc5NDMxIn0.3oodNEt1JY52Na7uT-aqMP0n6oxzRhGisBWUMeQHW9o",
+   "created": "2026-08-22T12:48:25Z",
+   "title": "Fiscal de Prevenção e Perdas - SAMS CLUB SANTO AMARO",
+   "description": "Ser um fiscal de loja significa assumir um papel importante na proteção da integridade física e o bem-estar de clientes e colaboradores, bem como a imagem e o patrimônio da empresa. Como fiscal de loja, você será responsável por monitorar ,executar atividades de gestão de riscos, envolvendo a fiscalização do patrimônio da empresa, nos diversos setores da loja, docas e estacionamento, bem como pela vistoria e controle da entrada e saída de veículos de clientes e fornecedores, controle da entrada…",
+   "redirect_url": "https://www.adzuna.com.br/details/5852679431?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0"
+  },
+  {
+   "id": "5894981149",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Grupo J J"
+   },
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "customer-services-jobs",
+    "label": "Vagas em Atendimento ao Cliente"
+   },
+   "created": "2026-09-23T06:12:14Z",
+   "contract_type": "permanent",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODk0OTgxMTQ5In0.sp5iANtxH4ilT5cQ4SYpgWv4mk1AnEGUAWTEtqaQ_eE",
+   "title": "MAIOR COMISSAO DO MERCAD - Telemarketing Seg À Sexta - Barra Funda - Vendas De Emprestimo",
+   "redirect_url": "https://www.adzuna.com.br/details/5894981149?utm_medium=api&utm_source=6cc82263",
+   "description": "Área e especialização profissional: Telemarketing - Telemarketing / Call Center Ativo Senioridade: Operacional Número de vagas: 50 Local de trabalho: São Paulo, SP Regime de contratação de tipo Efetivo – CLT Jornada Período Integral ANTES DE MANDAR QUALQUER MENSAGEM, LEIA TUDO! Não vendemos cursos, contrato CLT. Para começo IMEDIATO, mande apenas seu currículo se estiver disponível para começar! Vendas de empréstimo consignados por ligação! Ótimo ambiente de trabalho, sem aquela loucura do dia …",
+   "salary_is_predicted": "0",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "__CLASS__": "Adzuna::API::Response::Job"
+  },
+  {
+   "description": "MAIS QUE MERCADO Somos hoje o maior empregador privado do País com 130 mil colaboradores e colaboradoras unidos no propósito de contribuir para uma alimentação mais acessível e de qualidade aos brasileiros e brasileiras, colaborando assim com a saúde e o bem-estar de todos e todas. No Carrefour, trabalhamos diariamente a cultura do respeito e da equidade. A valorização da diversidade é um compromisso para o Carrefour, por isso, encorajamos a candidatura e damos oportunidade a profissionais dive…",
+   "redirect_url": "https://www.adzuna.com.br/details/5945883196?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "Peixeiro - Carrefour Valinhos",
+   "category": {
+    "tag": "unknown",
+    "label": "Unknown",
+    "__CLASS__": "Adzuna::API::Response::Category"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTQ1ODgzMTk2In0.DRtIfXHi3YZuoLlLUQAISarrP8U1j7JZ8fPTf5WxlSQ",
+   "created": "2026-10-29T12:46:42Z",
+   "id": "5945883196",
+   "contract_time": "full_time",
+   "company": {
+    "display_name": "Carrefour & Sam'S",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   }
+  },
+  {
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "SulAmérica"
+   },
+   "id": "5936848687",
+   "created": "2026-10-21T13:09:26Z",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTM2ODQ4Njg3In0.f8r83lxnRX7he_1_dpORmCa4G49cVIYTUnFQftvCV-g",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "tag": "unknown",
+    "label": "Unknown"
+   },
+   "title": "Consultor Consultor de Sinistros",
+   "salary_is_predicted": "0",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo"
+   },
+   "redirect_url": "https://www.adzuna.com.br/details/5936848687?utm_medium=api&utm_source=6cc82263",
+   "description": "Detalhes da vaga Para o match perfeito acontecer precisa de PESSOAS, com as mais diversas experiências e pontos de vista, para que possamos continuar evoluindo enquanto empresa.Por isso, aqui na SulAmérica, incentivamos a candidatura de pessoas de todas as raças/etnias, orientações sexuais, identidades de gênero, gerações, com ou sem deficiência, para todas as nossas vagas. Afinal, as nossas diferenças é o que nos complementam!LGBTI PessoasNegras PcD 50 Gerações PessoasComDeficiênciaO que busca…"
+  },
+  {
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas no ramo Industrial",
+    "tag": "manufacturing-jobs"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1ODI1NzQ0NzA0In0.eRzjvzcrT05FAFzZYwl-LwF4VFXmmrAfhdQeO6TQuCc",
+   "created": "2026-08-02T11:49:24Z",
+   "id": "5825744704",
+   "contract_time": "part_time",
+   "company": {
+    "display_name": "Dengo Chocolates",
+    "__CLASS__": "Adzuna::API::Response::Company"
+   },
+   "description": "Vem ser Especialista de Loja aqui com a gente. Queremos que todas as pessoas se sintam bem sendo quem são, no ambiente de trabalho e também fora dele, por isso, incentivamos você, pessoa trans, preta, indígena, refugiada e/ou da comunidade LGBTQIA a enviar sua candidatura para nós. A Dengo é comprometida em avaliar todas as pessoas qualificadas de maneira equitativa, independentemente de raça, cor, religião, identidade ou expressão de gênero, orientação sexual ou deficiência. Faça parte de um m…",
+   "redirect_url": "https://www.adzuna.com.br/details/5825744704?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "display_name": "São Paulo, Estado de São Paulo",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "title": "Pessoa Vendedora - Shopping Eldorado - São Paulo/SP"
+  },
+  {
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas no ramo Industrial",
+    "tag": "manufacturing-jobs"
+   },
+   "contract_type": "contract",
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTA4MzAxNzMyIn0.cXzMI-zWGEECYBs6fZcSr-dBLp-ibbsEPOpU_pwGUDY",
+   "created": "2026-10-02T12:47:33Z",
+   "salary_max": 25200,
+   "id": "5908301732",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Dengo Chocolates"
+   },
+   "description": "Vem ser Assistente de Loja temporário aqui com a gente. Queremos que todas as pessoas se sintam bem sendo quem são, no ambiente de trabalho e também fora dele, por isso, incentivamos você, pessoa trans, preta, indígena, refugiada e/ou da comunidade LGBTQIA a enviar sua candidatura para nós. A Dengo é comprometida em avaliar todas as pessoas qualificadas de maneira equitativa, independentemente de raça, cor, religião, identidade ou expressão de gênero, orientação sexual ou deficiência. Faça part…",
+   "redirect_url": "https://www.adzuna.com.br/details/5908301732?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ],
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location"
+   },
+   "salary_is_predicted": "0",
+   "salary_min": 25200,
+   "title": "Assistente de Loja (Temporário) - São Paulo Zona Sul"
+  },
+  {
+   "description": "Vem ser Assistente de Loja temporário aqui com a gente. Queremos que todas as pessoas se sintam bem sendo quem são, no ambiente de trabalho e também fora dele, por isso, incentivamos você, pessoa trans, preta, indígena, refugiada e/ou da comunidade LGBTQIA a enviar sua candidatura para nós. A Dengo é comprometida em avaliar todas as pessoas qualificadas de maneira equitativa, independentemente de raça, cor, religião, identidade ou expressão de gênero, orientação sexual ou deficiência. Faça part…",
+   "redirect_url": "https://www.adzuna.com.br/details/5908423341?utm_medium=api&utm_source=6cc82263",
+   "__CLASS__": "Adzuna::API::Response::Job",
+   "location": {
+    "display_name": "São Paulo, Estado de São Paulo",
+    "__CLASS__": "Adzuna::API::Response::Location",
+    "area": [
+     "Brasil",
+     "Sudeste",
+     "Estado de São Paulo",
+     "São Paulo"
+    ]
+   },
+   "salary_is_predicted": "0",
+   "salary_min": 25200,
+   "title": "Assistente de Loja (Temporário) - São Paulo Zona Norte",
+   "category": {
+    "__CLASS__": "Adzuna::API::Response::Category",
+    "label": "Vagas no ramo Industrial",
+    "tag": "manufacturing-jobs"
+   },
+   "adref": "eyJhbGciOiJIUzI1NiJ9.eyJzIjoidEVBRFZKYlo4Ukc0dnIzVVJkU05LdyIsImkiOiI1OTA4NDIzMzQxIn0.zUygBg-sgfFZ4XqId55VfWcM3qnGmRyW_GUDaFJXC5s",
+   "contract_type": "contract",
+   "created": "2026-10-02T13:27:40Z",
+   "salary_max": 25200,
+   "id": "5908423341",
+   "company": {
+    "__CLASS__": "Adzuna::API::Response::Company",
+    "display_name": "Dengo Chocolates"
+   }
+  }
+ ],
+ "count": 951,
+ "__CLASS__": "Adzuna::API::Response::JobSearchResults",
+ "mean": 30993.49
+}

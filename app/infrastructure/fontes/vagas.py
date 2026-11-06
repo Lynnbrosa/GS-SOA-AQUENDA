@@ -1,6 +1,7 @@
 """Adaptadores das fontes de vagas: Adzuna (API oficial) e Gupy (endpoint público do portal)."""
 
 import logging
+import re
 from datetime import datetime
 
 import httpx
@@ -47,7 +48,6 @@ class AdzunaFonte:
     nome = NomeFonte.ADZUNA
     origem = OrigemVaga.ADZUNA
     TERMOS = "lgbt lgbtqia lgbtqiapn lgbti travesti travestis transgenero trans"
-    PAGINAS = 2
     POR_PAGINA = 50
 
     def __init__(self, cliente: httpx.Client, settings: Settings) -> None:
@@ -59,7 +59,7 @@ class AdzunaFonte:
 
     def buscar(self, agora: datetime) -> list[Vaga]:
         vagas: list[Vaga] = []
-        for pagina in range(1, self.PAGINAS + 1):
+        for pagina in range(1, max(1, self._s.adzuna_paginas) + 1):
             dados = get_json(self._cliente, "Adzuna", f"{self._s.adzuna_url}/{pagina}", params={
                 "app_id": self._s.adzuna_app_id,
                 "app_key": self._s.adzuna_app_key,
@@ -76,11 +76,19 @@ class AdzunaFonte:
                 break
         return vagas
 
+    @staticmethod
+    def _cidade_uf(area: list[str]) -> tuple[str | None, str | None]:
+        """No Brasil a Adzuna manda ["Brasil", "Sudeste", "Estado de São Paulo", "São Paulo", zona, bairro].
+        A UF é o item "Estado de ..." (ou "Distrito Federal") e a cidade é o item seguinte."""
+        for i, nome in enumerate(area):
+            sem_prefixo = re.sub(r"^estado (de |do |da )?", "", normalizar(nome))
+            if i > 0 and sem_prefixo in UF_POR_NOME:
+                cidade = area[i + 1] if len(area) > i + 1 else None
+                return cidade, UF_POR_NOME[sem_prefixo]
+        return None, None
+
     def _converter(self, item: dict, agora: datetime) -> Vaga:
-        area = (item.get("location") or {}).get("area") or []
-        # area vem como ["Brasil", "São Paulo" (estado), "São Paulo" (cidade), ...]
-        uf = UF_POR_NOME.get(normalizar(area[1])) if len(area) > 1 else None
-        cidade = area[-1] if len(area) > 2 else None
+        cidade, uf = self._cidade_uf((item.get("location") or {}).get("area") or [])
         return Vaga.criar(
             origem=self.origem,
             id_externo=str(item["id"]),
