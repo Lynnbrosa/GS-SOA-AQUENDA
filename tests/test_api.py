@@ -81,7 +81,7 @@ def test_detalhe_da_vaga_traz_fonte_coleta_e_aviso(com_vagas):
     detalhe = com_vagas.get(f"/api/vagas/{vaga_id}").json()
     assert detalhe["fonte"] == "Adzuna (API oficial)"
     assert detalhe["coletada_em"] == "2026-11-10T12:00:00Z"
-    assert detalhe["termo_afirmativo"] == "afirmativa"
+    assert detalhe["termo_afirmativo"] == "pessoas trans"
     assert "site de origem" in detalhe["aviso"]
     assert detalhe["descricao"].startswith("Vaga afirmativa para pessoas trans")
 

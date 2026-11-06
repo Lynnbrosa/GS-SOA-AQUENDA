@@ -46,7 +46,7 @@ class AdzunaFonte:
 
     nome = NomeFonte.ADZUNA
     origem = OrigemVaga.ADZUNA
-    TERMOS = "afirmativa lgbt lgbtqia lgbtqiapn travesti transgenero"
+    TERMOS = "lgbt lgbtqia lgbtqiapn lgbti travesti travestis transgenero trans"
     PAGINAS = 2
     POR_PAGINA = 50
 
@@ -99,12 +99,13 @@ class AdzunaFonte:
 
 
 class GupyFonte:
-    """Endpoint público que alimenta o portal de vagas da Gupy. Não é API oficial:
+    """Rota pública que o portal de vagas da Gupy usa na própria busca. Não é API oficial:
     por isso o cache de 60 minutos e a URL configurável em GUPY_URL."""
 
     nome = NomeFonte.GUPY
     origem = OrigemVaga.GUPY
-    TERMOS = ("afirmativa", "pessoas trans", "LGBT")
+    # Testados no portal em 06/11/2026; "diversidade" e "afirmativa" trazem muito ruído (PCD, 50+).
+    TERMOS = ("trans", "travesti", "transgênero", "LGBT", "LGBTQIA", "não binária")
     LIMITE = 100
 
     _MODALIDADES = {"remote": Modalidade.REMOTO, "hybrid": Modalidade.HIBRIDO, "on-site": Modalidade.PRESENCIAL}
@@ -120,7 +121,7 @@ class GupyFonte:
         por_id: dict[str, Vaga] = {}
         for termo in self.TERMOS:
             dados = get_json(self._cliente, "Gupy", self._s.gupy_url,
-                             params={"name": termo, "offset": 0, "limit": self.LIMITE})
+                             params={"jobName": termo, "offset": 0, "limit": self.LIMITE})
             if not isinstance(dados, dict) or not isinstance(dados.get("data"), list):
                 raise FonteIndisponivel("Gupy mudou o formato da resposta.")
             lote: list[Vaga] = []

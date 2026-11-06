@@ -26,9 +26,11 @@ def nova_vaga(**sobrescrever) -> Vaga:
 # ------------------------------------------------------------- vaga afirmativa
 
 @pytest.mark.parametrize("texto, esperado", [
-    ("Vaga afirmativa para pessoas trans", "afirmativa"),
-    ("Processo seletivo AFIRMATIVO", "afirmativo"),
+    ("Vaga afirmativa para pessoas trans", "pessoas trans"),
+    ("VAGA AFIRMATIVA PARA PESSOAS TRANSGÊNERO", "pessoas transgenero"),
     ("Exclusiva para pessoas travestis e transexuais", "pessoas travestis"),
+    ("Vaga Afirmativa Para Mulheres (Cis e Trans)", "cis e trans"),
+    ("Banco de Talentos TIM - LGBTI+", "lgbti"),
     ("Buscamos pessoas LGBTQIAPN+", "lgbtqiapn"),
     ("Pessoa não binária, trans ou travesti", "pessoa nao binaria"),
 ])
@@ -37,6 +39,8 @@ def test_reconhece_vaga_afirmativa(texto, esperado):
 
 
 @pytest.mark.parametrize("texto", [
+    "Comprador Jr (Vaga Afirmativa - PCD)",
+    "Processo seletivo afirmativo para pessoas negras",
     "Motorista de transporte escolar",
     "Analista de transações financeiras",
     "Transformação digital",
@@ -49,7 +53,7 @@ def test_nao_confunde_trans_com_outras_palavras(texto):
 def test_vaga_guarda_o_termo_que_a_tornou_afirmativa():
     vaga = nova_vaga(titulo="Dev Jr", descricao="<p>Vaga <b>afirmativa</b> para pessoas trans</p>")
     assert vaga.afirmativa
-    assert vaga.termo_afirmativo == "afirmativa"
+    assert vaga.termo_afirmativo == "pessoas trans"
 
 
 def test_curadoria_pode_marcar_afirmativa_por_definicao():

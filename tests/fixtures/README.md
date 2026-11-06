@@ -9,7 +9,8 @@ e o `conftest.py` derruba qualquer tentativa de abrir conexão.
 | `cnes_estabelecimento_inexistente.json` | **Gravado** do mesmo endpoint com o código `1` (HTTP 404). |
 | `adzuna_401.json` | **Gravado** de `GET https://api.adzuna.com/v1/api/jobs/br/search/1` com chave inválida (HTTP 401). |
 | `adzuna_busca.json` | **Montado** no formato documentado em developer.adzuna.com (não havia chave válida na gravação). Empresas são fictícias ("Empresa Exemplo"). |
-| `gupy_busca_*.json` | **Montado** no formato do portal público da Gupy. Na gravação, o endpoint respondeu 404 a partir do servidor de desenvolvimento. Empresas fictícias. |
+| `gupy_real_*.json` | **Gravado** de `GET https://portal.gupy.io/api/job-search/jobs?jobName=<termo>&limit=100` em 06/11/2026, um arquivo por termo (37 vagas reais). Os textos foram varridos atrás de e-mails (nenhum encontrado). |
+| `gupy_busca_*.json` | **Montado** no mesmo formato para casos de borda (link `javascript:`, vaga sem cidade, vaga não afirmativa). Empresas fictícias. |
 | `ibge_municipios_sp.json` | **Montado** no formato do IBGE Localidades, com códigos IBGE reais. O servidor do IBGE recusou a conexão na gravação. Inclui um município sem `microrregiao` (acontece com municípios novos) e um item quebrado. |
 
 Para regravar quando houver chave e acesso, rode a sincronização (`python -m app.cli sincronizar --forcar`)

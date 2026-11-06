@@ -79,6 +79,24 @@ def test_gupy_junta_os_termos_sem_duplicar(fontes_ok, cliente, settings):
     assert fontes_ok["gupy_afirmativa"].call_count == 1
 
 
+def test_gupy_respostas_reais_gravadas(mock_http, cliente, settings):
+    """Respostas reais do portal (06/11/2026): toda vaga achada pelos termos é afirmativa LGBTQIAPN+."""
+    arquivos = {"trans": "trans", "travesti": "travesti", "transgênero": "transgenero", "LGBT": "lgbt",
+                "LGBTQIA": "lgbtqia", "não binária": "nao_binaria"}
+    brutas = 0
+    for termo, arquivo in arquivos.items():
+        dados = carregar(f"gupy_real_{arquivo}.json")
+        brutas += len(dados["data"])
+        mock_http.get(GUPY, params={"jobName": termo}).respond(200, json=dados)
+
+    vagas = GupyFonte(cliente, settings).buscar(AGORA)
+
+    assert brutas == 37 and len(vagas) == 35, "a mesma vaga aparece em mais de um termo e não pode duplicar"
+    assert all(v.afirmativa for v in vagas), [v.titulo for v in vagas if not v.afirmativa]
+    assert all(v.url_candidatura.startswith("https://") and ".gupy.io/" in v.url_candidatura for v in vagas)
+    assert sum(v.uf == "SP" for v in vagas) >= 20
+
+
 def test_gupy_mudou_de_formato(mock_http, cliente, settings):
     mock_http.get(GUPY).respond(200, json={"jobs": []})
     with pytest.raises(FonteIndisponivel, match="formato"):

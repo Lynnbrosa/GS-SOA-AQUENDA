@@ -29,7 +29,7 @@ O nome vem do pajubá, a linguagem criada e mantida pela comunidade travesti: *a
 
 ## O que o serviço faz
 
-- **Vagas afirmativas** (`/api/vagas`): junta a **Adzuna** (API oficial), a **Gupy** (endpoint público do portal de vagas) e a **curadoria do grupo** (Transcidadania e TransEmpregos, fixos e com fonte). Filtra por texto, cidade, UF, afirmativa, modalidade e origem. Cada vaga diz **por que** é afirmativa (o trecho do anúncio) e traz o link do **site de origem**: a candidatura é sempre lá, o Aquenda não recebe currículo.
+- **Vagas afirmativas** (`/api/vagas`): junta a **Adzuna** (API oficial), a **Gupy** (rota pública que o portal de vagas portal.gupy.io usa na busca) e a **curadoria do grupo** (Transcidadania e TransEmpregos, fixos e com fonte). Filtra por texto, cidade, UF, afirmativa, modalidade e origem. Cada vaga diz **por que** é afirmativa (o trecho do anúncio) e traz o link do **site de origem**: a candidatura é sempre lá, o Aquenda não recebe currículo.
 - **Saúde trans no SUS** (`/api/municipios/{codigo}/estabelecimentos`): estabelecimentos do **CNES** com a habilitação **30.02** (processo transexualizador), com endereço, telefone, coordenadas e data de atualização no CNES.
 - **Municípios** (`/api/municipios`): base do **IBGE Localidades**, com o código que o DATASUS usa (IBGE sem o dígito verificador).
 - **Fontes** (`/api/fontes`): de quando é o dado de cada fonte, se o cache vale e qual foi o último erro. `POST /api/fontes/sincronizar` busca dados novos.
@@ -80,7 +80,7 @@ Copie `.env.example` para `.env`. O `.env` não vai para o repositório.
 | `ADZUNA_APP_ID`, `ADZUNA_APP_KEY` | Chave grátis em developer.adzuna.com. Sem ela, a Adzuna fica `nao_configurada` e o resto funciona | vazio |
 | `CHAVE_OPERADOR` | Protege `POST /api/fontes/sincronizar` (cabeçalho `X-Chave-Operador`) | vazio |
 | `AMBIENTE` | Em `desenvolvimento`, a sincronização fica livre sem chave. Fora dele, sem chave configurada responde 503 | `desenvolvimento` |
-| `GUPY_URL` | Endpoint público da Gupy (configurável porque não é API oficial) | `https://portal.api.gupy.io/api/job` |
+| `GUPY_URL` | Rota pública de busca do portal da Gupy (configurável porque não é API oficial e já mudou de endereço) | `https://portal.gupy.io/api/job-search/jobs` |
 | `CACHE_MINUTOS_VAGAS`, `CACHE_MINUTOS_CNES`, `CACHE_MINUTOS_IBGE` | Quanto tempo o resultado de cada fonte vale | 60 · 1440 · 10080 |
 | `MIGRAR_AO_INICIAR` | Aplica as migrações na subida | `true` |
 
@@ -138,7 +138,7 @@ app/
   api/              rotas FastAPI, schemas Pydantic, dependências, ProblemDetails
   cli.py            sincronização pela linha de comando (timer da VM)
 alembic/            env.py (lê DATABASE_URL) e versions/
-tests/              87 testes pytest + respostas gravadas em tests/fixtures
+tests/              92 testes pytest + respostas gravadas em tests/fixtures
 ```
 
 ```
@@ -155,18 +155,18 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 
 | Critério | Peso | Onde ver |
 |---|---|---|
-| **Estruturação do domínio** | 3,0 | `app/domain`. `Vaga.criar` é a única porta de entrada: limpa HTML, recusa link que não é http(s) (ex.: `javascript:`), corrige salário invertido e decide se a vaga é afirmativa. A regra de vaga afirmativa (`domain/afirmativa.py`) usa fronteira de palavra para não confundir "trans" com "transporte" e guarda o termo encontrado. `Municipio` confere a UF pelo código IBGE; `codigo_municipio_cnes` converte para o código de 6 dígitos do DATASUS. `EstabelecimentoCnes` não guarda e-mail e preserva as habilitações da curadoria quando o CNES atualiza. `cache_valido` e `Sincronizacao` decidem quando chamar uma fonte. Repositórios e fontes são contratos (`Protocol`) que a infraestrutura implementa; a aplicação recebe tudo por injeção (`app/api/deps.py`). |
+| **Estruturação do domínio** | 3,0 | `app/domain`. `Vaga.criar` é a única porta de entrada: limpa HTML, recusa link que não é http(s) (ex.: `javascript:`), corrige salário invertido e decide se a vaga é afirmativa. A regra de vaga afirmativa (`domain/afirmativa.py`) exige que o anúncio cite o público LGBTQIAPN+ ("afirmativa para PCD" não conta), usa fronteira de palavra para não confundir "trans" com "transporte" e guarda o termo encontrado. `Municipio` confere a UF pelo código IBGE; `codigo_municipio_cnes` converte para o código de 6 dígitos do DATASUS. `EstabelecimentoCnes` não guarda e-mail e preserva as habilitações da curadoria quando o CNES atualiza. `cache_valido` e `Sincronizacao` decidem quando chamar uma fonte. Repositórios e fontes são contratos (`Protocol`) que a infraestrutura implementa; a aplicação recebe tudo por injeção (`app/api/deps.py`). |
 | **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL funciona sem mudar código). Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
 | **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação 30.02 e retrato do CNES, com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
 | **Documentação automática** | 1,5 | Swagger em `/docs` e ReDoc em `/redoc`, com descrição do serviço, 3 grupos de rotas, resumo e descrição por endpoint, exemplos nos parâmetros, descrição dos campos nos schemas e respostas de erro documentadas como `application/problem+json` (o 422 padrão do FastAPI foi trocado pelo 400 que a API realmente devolve). |
-| **Testes automatizados** | 1,0 | 87 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas, sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
+| **Testes automatizados** | 1,0 | 92 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
 
 ## Fontes, cache e o que acontece quando algo cai
 
 | Fonte | Como entra | Cache | Se falhar |
 |---|---|---|---|
 | Adzuna | `GET /v1/api/jobs/br/search/{página}` com `what_or` (afirmativa, LGBT, travesti...) em São Paulo, até 2 páginas | 60 min | Sem chave: `nao_configurada`. Chave recusada, fora do ar ou formato estranho: `falha`, e as vagas antigas continuam |
-| Gupy | Endpoint público do portal, buscando "afirmativa", "pessoas trans" e "LGBT", sem duplicar | 60 min | `falha`; URL configurável em `GUPY_URL` |
+| Gupy | `GET portal.gupy.io/api/job-search/jobs?jobName=` para trans, travesti, transgênero, LGBT, LGBTQIA e não binária, sem duplicar | 60 min | `falha`; URL configurável em `GUPY_URL` |
 | CNES | `GET /cnes/estabelecimentos/{código}` para cada código da lista de habilitação 30.02 | 24 h | `falha`; código que não existe mais é avisado na mensagem |
 | IBGE | `GET /localidades/estados/SP/municipios` | 7 dias | `falha`; resposta vazia também conta como falha |
 
@@ -178,11 +178,24 @@ A API aberta do CNES não filtra por habilitação. Por isso a lista de quem tem
 - **E-mail do CNES não é guardado.** A resposta do CNES traz o e-mail do responsável pelo cadastro, que costuma ser pessoal; o adaptador ignora o campo e um teste garante que o estabelecimento convertido não carrega nada com `@`. A resposta gravada para os testes também está sem ele.
 - **Link de candidatura só http(s).** Evita que um anúncio malicioso injete `javascript:` no app.
 - **Escrita protegida.** A sincronização exige `X-Chave-Operador` fora de desenvolvimento, comparado em tempo constante.
-- **Cliente HTTP identificado.** As fontes recebem o User-Agent `aquenda-soa/1.0 (GS CitizenTech FIAP)`. A Gupy é usada pelo endpoint público, com cache de 60 minutos para não sobrecarregar.
+- **Cliente HTTP identificado.** As fontes recebem o User-Agent `aquenda-soa/1.0 (GS CitizenTech FIAP)`. A Gupy é usada pela rota pública do portal, com cache de 60 minutos para não sobrecarregar.
+
+## Teste real (06/11/2026)
+
+Sincronização rodada contra as fontes de verdade, num banco novo, com a API no ar:
+
+| Fonte | Resultado |
+|---|---|
+| Gupy | **35 vagas reais** (37 respostas, 2 repetidas entre termos), 33 de cara classificadas como afirmativas. As 2 restantes eram "Vaga afirmativa para mulheres (cis e trans)", e a regra foi ajustada para contá-las. 25 em SP; o link de candidatura de uma delas foi aberto e respondeu 200. |
+| CNES | HC-FMUSP atualizado pela API de dados abertos. |
+| Adzuna | `nao_configurada`: falta a chave (`ADZUNA_APP_ID`/`ADZUNA_APP_KEY`). Com chave inválida a API respondeu 401, tratado como `falha`. |
+| IBGE | `falha`: o servidor do IBGE derruba conexões vindas do servidor de testes (fora do Brasil). A API seguiu respondendo; a leitura levou 0,02 s enquanto a sincronização esperava o IBGE. Precisa ser confirmado na VM. |
+
+O teste real também mostrou dois problemas, já corrigidos: o endereço antigo da Gupy (`portal.api.gupy.io`) não existe mais, e buscar "afirmativa" trazia sobretudo vagas para PCD, que agora não contam como afirmativas para o Aquenda.
 
 ## Dados
 
-As respostas usadas nos testes estão em [`tests/fixtures`](tests/fixtures), com a origem de cada uma no README da pasta. As do **CNES** e o 401 da **Adzuna** foram **gravadas** das APIs reais em 06/11/2026. As da Adzuna com resultados, da Gupy e do IBGE foram **montadas** no formato documentado de cada fonte (sem chave da Adzuna; a Gupy respondeu 404 e o IBGE recusou a conexão vindas do servidor de desenvolvimento), com empresas fictícias ("Empresa Exemplo").
+As respostas usadas nos testes estão em [`tests/fixtures`](tests/fixtures), com a origem de cada uma no README da pasta. São **gravadas das fontes reais em 06/11/2026**: as 6 buscas da Gupy (37 vagas), o estabelecimento do CNES, o 404 do CNES e o 401 da Adzuna. Os casos de borda (vaga sem link, link `javascript:`, formato mudado) e as respostas da Adzuna com resultados e do IBGE foram **montados** no formato documentado de cada fonte, com empresas fictícias ("Empresa Exemplo"), porque não havia chave da Adzuna e o IBGE recusou a conexão.
 
 Fontes: [CNES, dados abertos do Ministério da Saúde](https://apidadosabertos.saude.gov.br) · [IBGE Localidades](https://servicodados.ibge.gov.br/api/docs/localidades) · [Adzuna API](https://developer.adzuna.com) · [Prefeitura SP, Transcidadania](https://prefeitura.sp.gov.br/web/lgbti/w/menu/150965) · [TransEmpregos](https://www.transempregos.org) · [Portaria de habilitação citada no pitch](https://www.conass.org.br/?p=2674)
 

@@ -19,8 +19,9 @@ class Settings(BaseSettings):
     adzuna_app_key: str = ""
     adzuna_url: str = "https://api.adzuna.com/v1/api/jobs/br/search"
 
-    # Gupy: endpoint público do portal de vagas. Configurável porque não é uma API oficial.
-    gupy_url: str = "https://portal.api.gupy.io/api/job"
+    # Gupy: rota pública que o próprio portal de vagas (portal.gupy.io) usa na busca.
+    # Configurável porque não é uma API oficial e já mudou de endereço uma vez.
+    gupy_url: str = "https://portal.gupy.io/api/job-search/jobs"
 
     cnes_url: str = "https://apidadosabertos.saude.gov.br/cnes"
     ibge_url: str = "https://servicodados.ibge.gov.br/api/v1/localidades"

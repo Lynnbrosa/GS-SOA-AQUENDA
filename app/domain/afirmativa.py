@@ -2,6 +2,10 @@
 
 As fontes não têm um campo "vaga afirmativa". A decisão vem do texto que a empresa
 escreveu, com fronteira de palavra para não confundir "trans" com "transporte".
+
+A palavra "afirmativa" sozinha não basta: na Gupy, a maior parte das vagas afirmativas
+é para pessoas com deficiência ou pessoas negras. Para o Aquenda, a vaga precisa citar
+o público LGBTQIAPN+ (pessoas trans, travestis, não binárias, LGBT+).
 """
 
 import re
@@ -9,10 +13,13 @@ import re
 from app.domain.comum import normalizar
 
 _PADROES = [
-    re.compile(r"\bafirmativ[ao]s?\b"),
     re.compile(r"\bpessoas? (trans|travestis?|transgeneros?|transexua(l|is)|nao binarias?)\b"),
     re.compile(r"\btravestis?\b"),
     re.compile(r"\btransgeneros?\b"),
+    re.compile(r"\btransexua(l|is)\b"),
+    re.compile(r"\b(pessoas?|identidades?) nao binari[ao]s?\b"),
+    re.compile(r"\b(mulher|mulheres|homem|homens) trans\b"),
+    re.compile(r"\bcis e trans\b"),
     re.compile(r"\blgbt[a-z+]*\b"),
     re.compile(r"\btranscidadania\b"),
 ]

@@ -16,7 +16,7 @@ from app.main import create_app
 FIXTURES = Path(__file__).parent / "fixtures"
 
 ADZUNA = "https://api.adzuna.com/v1/api/jobs/br/search"
-GUPY = "https://portal.api.gupy.io/api/job"
+GUPY = "https://portal.gupy.io/api/job-search/jobs"
 CNES = "https://apidadosabertos.saude.gov.br/cnes"
 IBGE = "https://servicodados.ibge.gov.br/api/v1/localidades"
 
@@ -81,11 +81,16 @@ def fontes_ok(mock_http):
     """Todas as fontes respondendo com as gravações."""
     rotas = {
         "adzuna": mock_http.get(url__startswith=f"{ADZUNA}/1").respond(200, json=carregar("adzuna_busca.json")),
-        "gupy_afirmativa": mock_http.get(GUPY, params={"name": "afirmativa"}).respond(
+        # Buscas da Gupy: as duas primeiras com as respostas montadas (casos de borda), o resto vazio.
+        "gupy_afirmativa": mock_http.get(GUPY, params={"jobName": "trans"}).respond(
             200, json=carregar("gupy_busca_afirmativa.json")),
-        "gupy_trans": mock_http.get(GUPY, params={"name": "pessoas trans"}).respond(
+        "gupy_trans": mock_http.get(GUPY, params={"jobName": "travesti"}).respond(
             200, json=carregar("gupy_busca_pessoas_trans.json")),
-        "gupy_lgbt": mock_http.get(GUPY, params={"name": "LGBT"}).respond(200, json={"data": [], "pagination": {}}),
+        **{
+            f"gupy_vazia_{termo}": mock_http.get(GUPY, params={"jobName": termo}).respond(
+                200, json={"data": [], "pagination": {}})
+            for termo in ("transgênero", "LGBT", "LGBTQIA", "não binária")
+        },
         "cnes": mock_http.get(f"{CNES}/estabelecimentos/2078015").respond(
             200, json=carregar("cnes_estabelecimento_2078015.json")),
         "ibge": mock_http.get(f"{IBGE}/estados/SP/municipios").respond(200, json=carregar("ibge_municipios_sp.json")),
