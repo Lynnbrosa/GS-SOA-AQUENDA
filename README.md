@@ -184,14 +184,14 @@ A API aberta do CNES não filtra por habilitação. Por isso a lista de quem tem
 
 ## Teste real (06/11/2026)
 
-Sincronização rodada contra as fontes de verdade, num banco novo, com a API no ar:
+Sincronização rodada contra as fontes de verdade, num banco novo, com a API no ar. As quatro fontes funcionaram:
 
 | Fonte | Resultado |
 |---|---|
 | Gupy | **35 vagas reais** (37 respostas, 2 repetidas entre termos), 33 de cara classificadas como afirmativas. As 2 restantes eram "Vaga afirmativa para mulheres (cis e trans)", e a regra foi ajustada para contá-las. 25 em SP; o link de candidatura de uma delas foi aberto e respondeu 200. |
 | CNES | HC-FMUSP atualizado pela API de dados abertos. |
 | Adzuna | **50 vagas reais** em São Paulo (de 951 encontradas), **34 afirmativas** LGBTQIAPN+. As 16 restantes (Carrefour, telemarketing, "Trans. Financeiras") ficaram corretamente fora do filtro. Usou 2 chamadas da cota. Com chave inválida a API responde 401, tratado como `falha`. |
-| IBGE | `falha`: o servidor do IBGE derruba conexões vindas do servidor de testes (fora do Brasil). A API seguiu respondendo; a leitura levou 0,02 s enquanto a sincronização esperava o IBGE. Precisa ser confirmado na VM. |
+| IBGE | **645 municípios de SP**, todos os do estado, numa máquina Windows no Brasil (Python + venv, `python -m app.cli sincronizar --fonte ibge --forcar`). No servidor de testes, fora do Brasil, o IBGE derruba a conexão: a API registrou `falha` e seguiu respondendo, com a leitura em 0,02 s enquanto a sincronização esperava o IBGE. |
 
 O teste real também mostrou problemas, já corrigidos: o endereço antigo da Gupy (`portal.api.gupy.io`) não existe mais; buscar "afirmativa" trazia sobretudo vagas para PCD, que agora não contam como afirmativas para o Aquenda; a localização da Adzuna no Brasil vem como `["Brasil", "Sudeste", "Estado de São Paulo", "São Paulo", zona, bairro]` e era lida errado; e o log do httpx gravava a URL com a chave da Adzuna (agora fica abaixo do nível do log).
 
