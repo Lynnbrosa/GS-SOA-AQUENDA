@@ -1,0 +1,6 @@
+{
+  "exception": "AUTH_FAIL",
+  "doc": "https://api.adzuna.com/v1/doc",
+  "display": "Authorisation failed",
+  "__CLASS__": "Adzuna::API::Response::Exception"
+}

@@ -1,0 +1,10 @@
+# Sincroniza as fontes externas. Disparado pelo timer abaixo.
+[Unit]
+Description=Aquenda SOA - sincronizar fontes externas
+
+[Service]
+Type=oneshot
+User=aquenda
+WorkingDirectory=/opt/aquenda/soa
+EnvironmentFile=/etc/aquenda/soa.env
+ExecStart=/opt/aquenda/soa/.venv/bin/python -m app.cli sincronizar

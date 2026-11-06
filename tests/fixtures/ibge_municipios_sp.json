@@ -1,0 +1,34 @@
+[
+  {
+    "id": 3550308,
+    "nome": "São Paulo",
+    "microrregiao": {"id": 35061, "nome": "São Paulo", "mesorregiao": {"id": 3515, "nome": "Metropolitana de São Paulo",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}},
+    "regiao-imediata": {"id": 350001, "nome": "São Paulo", "regiao-intermediaria": {"id": 3501, "nome": "São Paulo",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}}
+  },
+  {
+    "id": 3518800,
+    "nome": "Guarulhos",
+    "microrregiao": {"id": 35059, "nome": "Guarulhos", "mesorregiao": {"id": 3515, "nome": "Metropolitana de São Paulo",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}},
+    "regiao-imediata": {"id": 350001, "nome": "São Paulo", "regiao-intermediaria": {"id": 3501, "nome": "São Paulo",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}}
+  },
+  {
+    "id": 3509502,
+    "nome": "Campinas",
+    "microrregiao": null,
+    "regiao-imediata": {"id": 350005, "nome": "Campinas", "regiao-intermediaria": {"id": 3502, "nome": "Campinas",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}}
+  },
+  {
+    "id": 3513801,
+    "nome": "Diadema",
+    "microrregiao": {"id": 35061, "nome": "São Paulo", "mesorregiao": {"id": 3515, "nome": "Metropolitana de São Paulo",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}},
+    "regiao-imediata": {"id": 350001, "nome": "São Paulo", "regiao-intermediaria": {"id": 3501, "nome": "São Paulo",
+      "UF": {"id": 35, "sigla": "SP", "nome": "São Paulo", "regiao": {"id": 3, "sigla": "SE", "nome": "Sudeste"}}}}
+  },
+  {"id": 123, "nome": "Código quebrado, deve ser descartado"}
+]

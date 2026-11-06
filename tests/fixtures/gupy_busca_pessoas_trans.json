@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": 9100002,
+      "companyId": 5002,
+      "name": "Desenvolvedor(a) Back-end Pleno",
+      "description": "Processo seletivo afirmativo para pessoas trans e travestis.",
+      "careerPageName": "Empresa Exemplo E",
+      "publishedDate": "2026-11-01T08:00:00.000Z",
+      "isRemoteWork": true,
+      "city": "",
+      "state": "",
+      "jobUrl": "https://exemplo-e.gupy.io/job/9100002",
+      "workplaceType": "remote"
+    },
+    {
+      "id": 9100004,
+      "companyId": 5004,
+      "name": "Atendente de Loja",
+      "description": "Loja no Shopping Frei Caneca. Atendimento ao público, presencial.",
+      "careerPageName": "Empresa Exemplo G",
+      "publishedDate": "2026-10-30T08:00:00.000Z",
+      "city": "São Paulo",
+      "state": "São Paulo",
+      "jobUrl": "https://exemplo-g.gupy.io/job/9100004",
+      "workplaceType": "on-site"
+    }
+  ],
+  "pagination": {"offset": 0, "limit": 100, "total": 2}
+}

@@ -1,0 +1,55 @@
+{
+  "data": [
+    {
+      "id": 9100001,
+      "companyId": 5001,
+      "name": "Assistente Administrativo(a) - Vaga Afirmativa LGBTQIAPN+",
+      "description": "<p>Esta é uma <b>vaga afirmativa</b> para pessoas LGBTQIAPN+.</p>",
+      "careerPageId": 7001,
+      "careerPageName": "Empresa Exemplo D",
+      "careerPageUrl": "https://exemplo-d.gupy.io",
+      "type": "vacancy_type_effective",
+      "publishedDate": "2026-11-05T10:00:00.000Z",
+      "applicationDeadline": null,
+      "isRemoteWork": false,
+      "city": "São Paulo",
+      "state": "São Paulo",
+      "country": "Brasil",
+      "jobUrl": "https://exemplo-d.gupy.io/job/9100001",
+      "workplaceType": "hybrid",
+      "disabilities": true
+    },
+    {
+      "id": 9100002,
+      "companyId": 5002,
+      "name": "Desenvolvedor(a) Back-end Pleno",
+      "description": "Processo seletivo afirmativo para pessoas trans e travestis.",
+      "careerPageId": 7002,
+      "careerPageName": "Empresa Exemplo E",
+      "careerPageUrl": "https://exemplo-e.gupy.io",
+      "type": "vacancy_type_effective",
+      "publishedDate": "2026-11-01T08:00:00.000Z",
+      "applicationDeadline": null,
+      "isRemoteWork": true,
+      "city": "",
+      "state": "",
+      "country": "Brasil",
+      "jobUrl": "https://exemplo-e.gupy.io/job/9100002",
+      "workplaceType": "remote",
+      "disabilities": false
+    },
+    {
+      "id": 9100003,
+      "companyId": 5003,
+      "name": "Vaga com link inseguro",
+      "description": "Item malformado: jobUrl não é http(s), deve ser descartado.",
+      "careerPageName": "Empresa Exemplo F",
+      "publishedDate": "2026-11-01T08:00:00.000Z",
+      "city": "Campinas",
+      "state": "São Paulo",
+      "jobUrl": "javascript:alert(1)",
+      "workplaceType": "on-site"
+    }
+  ],
+  "pagination": {"offset": 0, "limit": 100, "total": 3}
+}

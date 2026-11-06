@@ -1,0 +1,41 @@
+{
+  "__CLASS__": "Adzuna::API::Response::JobSearchResults",
+  "count": 3,
+  "mean": 4100.0,
+  "results": [
+    {
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "id": "4811000001",
+      "title": "Analista de Dados Jr. - <strong>Vaga afirmativa</strong> para pessoas trans",
+      "description": "Vaga afirmativa para pessoas trans e travestis. Modelo híbrido, 3 dias no escritório na Av. Paulista.",
+      "created": "2026-11-04T12:30:00Z",
+      "redirect_url": "https://www.adzuna.com.br/land/ad/4811000001?se=exemplo",
+      "company": {"__CLASS__": "Adzuna::API::Response::Company", "display_name": "Empresa Exemplo A"},
+      "location": {"__CLASS__": "Adzuna::API::Response::Location", "display_name": "São Paulo, São Paulo", "area": ["Brasil", "São Paulo", "São Paulo"]},
+      "category": {"__CLASS__": "Adzuna::API::Response::Category", "label": "Vagas em TI", "tag": "it-jobs"},
+      "salary_min": 4500,
+      "salary_max": 3800,
+      "contract_time": "full_time"
+    },
+    {
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "id": "4811000002",
+      "title": "Motorista de transporte escolar",
+      "description": "Transporte de alunos na zona sul. Trabalho presencial.",
+      "created": "2026-11-03T09:00:00Z",
+      "redirect_url": "https://www.adzuna.com.br/land/ad/4811000002?se=exemplo",
+      "company": {"__CLASS__": "Adzuna::API::Response::Company", "display_name": "Empresa Exemplo B"},
+      "location": {"__CLASS__": "Adzuna::API::Response::Location", "display_name": "São Paulo, São Paulo", "area": ["Brasil", "São Paulo", "São Paulo"]},
+      "category": {"__CLASS__": "Adzuna::API::Response::Category", "label": "Logística", "tag": "logistics-warehouse-jobs"}
+    },
+    {
+      "__CLASS__": "Adzuna::API::Response::Job",
+      "id": "4811000003",
+      "title": "Vaga sem link de candidatura",
+      "description": "Item malformado: sem redirect_url, deve ser descartado sem derrubar a coleta.",
+      "created": "2026-11-02T09:00:00Z",
+      "company": {"display_name": "Empresa Exemplo C"},
+      "location": {"display_name": "Brasil", "area": ["Brasil"]}
+    }
+  ]
+}

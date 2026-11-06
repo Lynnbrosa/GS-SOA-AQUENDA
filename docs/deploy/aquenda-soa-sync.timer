@@ -1,0 +1,10 @@
+# A cada hora. Fonte com cache válido não é chamada de novo.
+[Unit]
+Description=Aquenda SOA - sincronização de hora em hora
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target
