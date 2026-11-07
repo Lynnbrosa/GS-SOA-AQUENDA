@@ -3,7 +3,7 @@
 from datetime import UTC, date, datetime
 
 from sqlalchemy import (
-    Boolean, Date, DateTime, Float, Index, Integer, String, Text, TypeDecorator, UniqueConstraint,
+    Boolean, Date, DateTime, Float, ForeignKey, Index, Integer, String, Text, TypeDecorator, UniqueConstraint,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -27,6 +27,22 @@ class UtcDateTime(TypeDecorator):
 
 class Base(DeclarativeBase):
     pass
+
+
+class EmpresaModel(Base):
+    """Uma empresa tem N vagas (vagas.empresa_id). Entrou na migração 0005."""
+
+    __tablename__ = "empresas"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    nome: Mapped[str] = mapped_column(String(200))
+    nome_busca: Mapped[str] = mapped_column(String(200), unique=True, index=True)
+    site: Mapped[str | None] = mapped_column(String(500))
+    compromisso: Mapped[str | None] = mapped_column(String(500))
+    criada_em: Mapped[datetime] = mapped_column(UtcDateTime())
+    atualizada_em: Mapped[datetime] = mapped_column(UtcDateTime())
+
+    vagas: Mapped[list["VagaModel"]] = relationship(back_populates="empresa_ref", passive_deletes=True)
 
 
 class VagaModel(Base):
@@ -57,6 +73,11 @@ class VagaModel(Base):
     salario_max: Mapped[float | None] = mapped_column(Float)
     ativa: Mapped[bool] = mapped_column(Boolean, default=True)
     exemplo: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Apagar a empresa não apaga a vaga: a vaga continua listada, só sem empresa vinculada.
+    empresa_id: Mapped[int | None] = mapped_column(
+        ForeignKey("empresas.id", name="fk_vagas_empresa_id_empresas", ondelete="SET NULL"), index=True,
+    )
+    empresa_ref: Mapped[EmpresaModel | None] = relationship(back_populates="vagas")
 
 
 class MunicipioModel(Base):
@@ -126,5 +147,5 @@ class SincronizacaoModel(Base):
 
 
 __all__ = [
-    "Base", "VagaModel", "MunicipioModel", "EstabelecimentoModel", "HabilitacaoModel", "SincronizacaoModel",
+    "Base", "EmpresaModel", "VagaModel", "MunicipioModel", "EstabelecimentoModel", "HabilitacaoModel", "SincronizacaoModel",
 ]

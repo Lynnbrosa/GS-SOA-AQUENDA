@@ -52,7 +52,23 @@ pip install -r requirements.txt && alembic upgrade head
 uvicorn app.main:app --port 8000
 ```
 
-Abre em http://localhost:8000/docs (Swagger) e http://localhost:8000/redoc. Sem `DATABASE_URL`, o banco é `./aquenda_soa.db`. A base já nasce com a curadoria, o município de São Paulo e o HC-FMUSP (retrato do CNES de 06/11/2026), então o app tem resposta antes da primeira sincronização.
+Abre em http://localhost:8000/docs (Swagger) e http://localhost:8000/redoc. Sem `DATABASE_URL`, o banco é `./aquenda_soa.db` (SQLite, para rodar sem nada instalado). A base já nasce com a curadoria, o município de São Paulo e o HC-FMUSP (retrato do CNES de 06/11/2026), então o app tem resposta antes da primeira sincronização.
+
+### Com PostgreSQL (o banco da VM)
+
+O `docker-compose.yml` sobe um PostgreSQL 16 com a senha do `.env`, que não vai para o Git:
+
+```bash
+cp .env.example .env
+```
+
+Troque `DB_PASSWORD` no `.env` e ative a linha `DATABASE_URL=postgresql+psycopg://...` com a mesma senha. Depois:
+
+```bash
+docker compose up -d && alembic upgrade head
+```
+
+Para recriar o banco do zero: `docker compose down -v`, `docker compose up -d` e `alembic upgrade head` de novo. O CI faz isso num PostgreSQL de verdade a cada push: sobe, desce e sobe as migrações, roda o `alembic check` e o CRUD de empresas (`python -m scripts.conferir_api`).
 
 Buscar dados novos (pela API ou pela linha de comando):
 
@@ -104,8 +120,13 @@ Saúde do serviço para o monitoramento: `GET /health`. Exemplos de unidade syst
 
 | Método | Rota | O que faz |
 |---|---|---|
-| GET | `/api/vagas` | Lista e filtra (`texto`, `cidade`, `uf`, `afirmativa`, `modalidade`, `origem`, `pagina`, `tamanho`) |
+| GET | `/api/vagas` | Lista e filtra (`texto`, `cidade`, `uf`, `afirmativa`, `modalidade`, `origem`, `empresa_id`, `pagina`, `tamanho`) |
 | GET | `/api/vagas/{id}` | Detalhe com descrição, fonte, data da coleta e aviso de candidatura no site de origem |
+| GET | `/api/empresas?nome=&pagina=&tamanho=` | Empresas em ordem alfabética, com quantas vagas ativas cada uma tem |
+| GET | `/api/empresas/{id}` | Uma empresa |
+| POST | `/api/empresas` | Cadastra (nome único sem diferenciar acento nem maiúscula; site só http(s)). Chave de operador |
+| PUT | `/api/empresas/{id}` | Atualiza nome, site e compromisso. Chave de operador |
+| DELETE | `/api/empresas/{id}` | Remove. As vagas **não** são apagadas: ficam no ar com `empresa_id` nulo (ON DELETE SET NULL). Chave de operador |
 | GET | `/api/municipios?uf=SP&nome=` | Municípios do IBGE, busca sem diferenciar acento |
 | GET | `/api/municipios/{codigo_ibge}` | Um município |
 | GET | `/api/municipios/{codigo_ibge}/estabelecimentos?habilitacao=&todas=` | Estabelecimentos CNES do município. Por padrão, os habilitados no processo transexualizador (30.01, 30.02 ou 30.03); `habilitacao=30.02` filtra um código; `todas=true` mostra todos |
@@ -128,9 +149,9 @@ Mesma organização em camadas da API C#. As dependências apontam para dentro: 
 
 ```
 app/
-  domain/           entidades e regras: Vaga, Municipio, EstabelecimentoCnes, Sincronizacao,
+  domain/           entidades e regras: Vaga, Empresa, Municipio, EstabelecimentoCnes, Sincronizacao,
                     regra de vaga afirmativa, regra de cache, contratos dos repositórios
-  application/      casos de uso: consultas (vagas, municípios, CNES) e sincronização;
+  application/      casos de uso: consultas (vagas, municípios, CNES), CRUD de empresas e sincronização;
                     portas para as fontes externas (FonteDeVagas, FonteCnes, FonteIbge)
   infrastructure/
     db/             modelos SQLAlchemy, sessão a partir de DATABASE_URL, migrações por código
@@ -139,8 +160,10 @@ app/
   api/              rotas FastAPI, schemas Pydantic, dependências, ProblemDetails
   cli.py            sincronização pela linha de comando (timer da VM)
 scripts/            habilitacoes_cnes.py: lê o arquivo oficial de habilitações do CNES (DATASUS)
+                    conferir_api.py: migra e percorre o CRUD e a chave estrangeira no banco de DATABASE_URL
 alembic/            env.py (lê DATABASE_URL) e versions/
-tests/              108 testes pytest + respostas gravadas em tests/fixtures
+tests/              125 testes pytest + respostas gravadas em tests/fixtures
+docker-compose.yml  PostgreSQL 16 local, com a senha do .env
 ```
 
 ```
@@ -157,11 +180,11 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 
 | Critério | Peso | Onde ver |
 |---|---|---|
-| **Estruturação do domínio** | 3,0 | `app/domain`. `Vaga.criar` é a única porta de entrada: limpa HTML, recusa link que não é http(s) (ex.: `javascript:`), corrige salário invertido e decide se a vaga é afirmativa. A regra de vaga afirmativa (`domain/afirmativa.py`) exige que o anúncio cite o público LGBTQIAPN+ ("afirmativa para PCD" não conta), usa fronteira de palavra para não confundir "trans" com "transporte" e guarda o termo encontrado. `Municipio` confere a UF pelo código IBGE; `codigo_municipio_cnes` converte para o código de 6 dígitos do DATASUS. `EstabelecimentoCnes` não guarda e-mail e preserva as habilitações da curadoria quando o CNES atualiza. `cache_valido` e `Sincronizacao` decidem quando chamar uma fonte. Repositórios e fontes são contratos (`Protocol`) que a infraestrutura implementa; a aplicação recebe tudo por injeção (`app/api/deps.py`). |
-| **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL funciona sem mudar código). Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
-| **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação e retrato do CNES. `0003` e `0004` **corrigem dados** já publicados: primeiro pela Portaria 2.803/2013, depois pelo arquivo oficial de habilitações do CNES (9 habilitações em 6 serviços de SP, com a portaria de cada uma). Todas com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
+| **Estruturação do domínio** | 3,0 | `app/domain`. `Empresa` (`domain/empresa.py`) tem nome único sem acento nem maiúscula, recusa "Empresa não informada" e site que não é http(s); cada `Vaga` aponta para a sua empresa (1 empresa → N vagas). `Vaga.criar` é a única porta de entrada: limpa HTML, recusa link que não é http(s) (ex.: `javascript:`), corrige salário invertido e decide se a vaga é afirmativa. A regra de vaga afirmativa (`domain/afirmativa.py`) exige que o anúncio cite o público LGBTQIAPN+ ("afirmativa para PCD" não conta), usa fronteira de palavra para não confundir "trans" com "transporte" e guarda o termo encontrado. `Municipio` confere a UF pelo código IBGE; `codigo_municipio_cnes` converte para o código de 6 dígitos do DATASUS. `EstabelecimentoCnes` não guarda e-mail e preserva as habilitações da curadoria quando o CNES atualiza. `cache_valido` e `Sincronizacao` decidem quando chamar uma fonte. Repositórios e fontes são contratos (`Protocol`) que a infraestrutura implementa; a aplicação recebe tudo por injeção (`app/api/deps.py`). |
+| **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL 16 pelo `docker-compose.yml`, com o driver `psycopg`, testado no CI e na VM). **CRUD completo de empresas** em `/api/empresas`, gravando e lendo do banco. **Chave estrangeira** `vagas.empresa_id → empresas.id` com ON DELETE SET NULL: apagar a empresa não apaga a vaga. Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
+| **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0005` **evolui o esquema**: cria `empresas`, acrescenta `vagas.empresa_id` com a chave estrangeira e o índice, e liga as vagas que já existiam às suas empresas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação e retrato do CNES. `0003` e `0004` **corrigem dados** já publicados: primeiro pela Portaria 2.803/2013, depois pelo arquivo oficial de habilitações do CNES (9 habilitações em 6 serviços de SP, com a portaria de cada uma). Todas com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
 | **Documentação automática** | 1,5 | Swagger em `/docs` e ReDoc em `/redoc`, com descrição do serviço, 3 grupos de rotas, resumo e descrição por endpoint, exemplos nos parâmetros, descrição dos campos nos schemas e respostas de erro documentadas como `application/problem+json` (o 422 padrão do FastAPI foi trocado pelo 400 que a API realmente devolve). |
-| **Testes automatizados** | 1,0 | 108 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha (localhost segue liberado, porque o asyncio do Windows precisa dele). CI no GitHub Actions. |
+| **Testes automatizados** | 1,0 | 125 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha (localhost segue liberado, porque o asyncio do Windows precisa dele). CI no GitHub Actions. |
 
 ## Fontes, cache e o que acontece quando algo cai
 
@@ -235,7 +258,16 @@ Fontes: [CNES, dados abertos do Ministério da Saúde](https://apidadosabertos.s
 
 ## Evidências
 
-Os 108 testes passando no Windows e no Linux: [`docs/evidencias/pytest.txt`](docs/evidencias/pytest.txt).
+| Arquivo | O que mostra |
+|---|---|
+| [`docs/evidencias/migracoes.txt`](docs/evidencias/migracoes.txt) | `alembic upgrade head` num banco vazio (0001 → 0005), o histórico, o `alembic check` e a 0005 descendo e subindo |
+| [`docs/evidencias/api-respondendo.txt`](docs/evidencias/api-respondendo.txt) | a API respondendo: CRUD de empresas, os erros 400, 404 e 422 e a vaga que continua no ar quando a empresa é apagada |
+| [`docs/evidencias/pytest.txt`](docs/evidencias/pytest.txt) | os 125 testes passando |
+| `docs/evidencias/swagger-*.png` | prints do Swagger (abaixo) |
+
+Swagger com o CRUD de empresas:
+
+![Swagger com empresas](docs/evidencias/swagger-empresas.png)
 
 Swagger com todos os endpoints:
 

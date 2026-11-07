@@ -17,7 +17,8 @@ class Saida(BaseModel):
 class VagaResumo(Saida):
     id: int
     titulo: str
-    empresa: str
+    empresa: str = Field(description="Nome da empresa como a fonte mandou.")
+    empresa_id: int | None = Field(description="Empresa vinculada (GET /api/empresas/{id}). Nulo quando a fonte não diz.")
     cidade: str | None
     uf: str | None
     modalidade: Modalidade
@@ -44,6 +45,40 @@ class PaginaVagas(BaseModel):
     pagina: int
     tamanho: int
     total_paginas: int
+
+
+class EmpresaEntrada(BaseModel):
+    nome: str = Field(min_length=1, max_length=200, examples=["TransEmpregos"])
+    site: str | None = Field(default=None, max_length=500, description="Link http(s).",
+                             examples=["https://www.transempregos.org"])
+    compromisso: str | None = Field(
+        default=None, max_length=500, description="O que a empresa faz pela comunidade LGBTQIAPN+.",
+        examples=["Maior banco de vagas e currículos de pessoas trans do Brasil."],
+    )
+
+
+class EmpresaSaida(BaseModel):
+    id: int = Field(examples=[2])
+    nome: str = Field(examples=["TransEmpregos"])
+    site: str | None = Field(examples=["https://www.transempregos.org"])
+    compromisso: str | None
+    vagas_ativas: int = Field(description="Vagas no ar ligadas a esta empresa.", examples=[1])
+    criada_em: datetime
+    atualizada_em: datetime
+
+
+class PaginaEmpresas(BaseModel):
+    itens: list[EmpresaSaida]
+    total: int
+    pagina: int
+    tamanho: int
+    total_paginas: int
+
+
+class EmpresaRemovida(BaseModel):
+    id: int = Field(examples=[2])
+    vagas_desvinculadas: int = Field(description="Vagas que continuam no ar, agora sem empresa vinculada.",
+                                     examples=[1])
 
 
 class MunicipioSaida(Saida):

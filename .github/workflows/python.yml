@@ -22,3 +22,31 @@ jobs:
         run: alembic check
       - name: Testes (sem rede)
         run: pytest
+
+  postgres:
+    # O mesmo esquema e o mesmo CRUD num PostgreSQL de verdade (o banco da VM).
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_DB: aquenda_soa
+          POSTGRES_USER: aquenda
+          POSTGRES_PASSWORD: senha-do-ci
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U aquenda -d aquenda_soa" --health-interval 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://aquenda:senha-do-ci@localhost:5432/aquenda_soa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Migrações sobem, descem e sobem de novo
+        run: alembic upgrade head && alembic downgrade base && alembic upgrade head
+      - name: Migrações batem com os modelos
+        run: alembic check
+      - name: CRUD de empresas e chave estrangeira no PostgreSQL
+        run: python -m scripts.conferir_api

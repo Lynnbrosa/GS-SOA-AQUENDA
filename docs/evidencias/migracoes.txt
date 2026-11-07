@@ -1,0 +1,39 @@
+$ alembic upgrade head        # banco vazio (DATABASE_URL=sqlite:///./ev.db)
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Estrutura inicial: vagas, municípios, estabelecimentos CNES, habilitações e sincronizações.
+INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Dados curados pelo grupo: vagas fixas, lista de habilitação 30.02 e um ponto de partida offline.
+INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Habilitações do processo transexualizador conferidas na Portaria GM/MS nº 2.803/2013.
+INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Habilitações do processo transexualizador em SP a partir do arquivo oficial do CNES.
+INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Empresas: evolução do esquema com chave estrangeira.
+
+$ alembic history
+0004 -> 0005 (head), Empresas: evolução do esquema com chave estrangeira.
+0003 -> 0004, Habilitações do processo transexualizador em SP a partir do arquivo oficial do CNES.
+0002 -> 0003, Habilitações do processo transexualizador conferidas na Portaria GM/MS nº 2.803/2013.
+0001 -> 0002, Dados curados pelo grupo: vagas fixas, lista de habilitação 30.02 e um ponto de partida offline.
+<base> -> 0001, Estrutura inicial: vagas, municípios, estabelecimentos CNES, habilitações e sincronizações.
+
+$ alembic current
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+0005 (head)
+
+$ alembic check               # modelos x migrações
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+No new upgrade operations detected.
+
+$ alembic downgrade 0004 && alembic upgrade head   # a 0005 desfaz e refaz
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 0005 -> 0004, Empresas: evolução do esquema com chave estrangeira.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Empresas: evolução do esquema com chave estrangeira.

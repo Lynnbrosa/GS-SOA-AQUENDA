@@ -2,17 +2,18 @@
 
 from datetime import datetime
 
-from sqlalchemy import func, select, update
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import Session
 
 from app.domain.comum import normalizar
+from app.domain.empresa import Empresa
 from app.domain.enums import Modalidade, NomeFonte, OrigemVaga, StatusSincronizacao
 from app.domain.localidades import EstabelecimentoCnes, Municipio
-from app.domain.repositorios import FiltroVagas
+from app.domain.repositorios import FiltroEmpresas, FiltroVagas
 from app.domain.sincronizacao import Sincronizacao
 from app.domain.vaga import Vaga
 from app.infrastructure.db.modelos import (
-    EstabelecimentoModel, HabilitacaoModel, MunicipioModel, SincronizacaoModel, VagaModel,
+    EmpresaModel, EstabelecimentoModel, HabilitacaoModel, MunicipioModel, SincronizacaoModel, VagaModel,
 )
 
 
@@ -29,7 +30,7 @@ def _vaga_para_dominio(m: VagaModel) -> Vaga:
         descricao=m.descricao, cidade=m.cidade, uf=m.uf, modalidade=Modalidade(m.modalidade),
         termo_afirmativo=m.termo_afirmativo, url_candidatura=m.url_candidatura, fonte=m.fonte,
         publicada_em=m.publicada_em, coletada_em=m.coletada_em, salario_min=m.salario_min,
-        salario_max=m.salario_max, ativa=m.ativa, exemplo=m.exemplo,
+        salario_max=m.salario_max, ativa=m.ativa, exemplo=m.exemplo, empresa_id=m.empresa_id,
     )
 
 
@@ -54,6 +55,7 @@ def _vaga_para_modelo(v: Vaga, m: VagaModel) -> VagaModel:
     m.salario_max = v.salario_max
     m.ativa = v.ativa
     m.exemplo = v.exemplo
+    m.empresa_id = v.empresa_id
     return m
 
 
@@ -80,6 +82,8 @@ class SqlVagaRepository:
             consulta = consulta.where(VagaModel.modalidade == filtro.modalidade.value)
         if filtro.origem:
             consulta = consulta.where(VagaModel.origem == filtro.origem.value)
+        if filtro.empresa_id is not None:
+            consulta = consulta.where(VagaModel.empresa_id == filtro.empresa_id)
 
         total = self._s.scalar(select(func.count()).select_from(consulta.subquery())) or 0
         # Curadoria (Transcidadania, TransEmpregos) primeiro; depois as mais novas.
@@ -119,6 +123,62 @@ class SqlVagaRepository:
             .values(ativa=False)
         )
         return resultado.rowcount or 0
+
+
+# ---------------------------------------------------------------- empresas
+
+def _empresa_para_dominio(m: EmpresaModel) -> Empresa:
+    return Empresa(id=m.id, nome=m.nome, site=m.site, compromisso=m.compromisso,
+                   criada_em=m.criada_em, atualizada_em=m.atualizada_em)
+
+
+class SqlEmpresaRepository:
+    def __init__(self, sessao: Session) -> None:
+        self._s = sessao
+
+    def buscar(self, filtro: FiltroEmpresas) -> tuple[list[Empresa], int]:
+        consulta = select(EmpresaModel)
+        if filtro.nome:
+            consulta = consulta.where(
+                EmpresaModel.nome_busca.like(f"%{_escapar_like(normalizar(filtro.nome))}%", escape="\\")
+            )
+        total = self._s.scalar(select(func.count()).select_from(consulta.subquery())) or 0
+        consulta = (consulta.order_by(EmpresaModel.nome_busca, EmpresaModel.id)
+                    .offset((filtro.pagina - 1) * filtro.tamanho).limit(filtro.tamanho))
+        return [_empresa_para_dominio(m) for m in self._s.scalars(consulta)], total
+
+    def obter(self, empresa_id: int) -> Empresa | None:
+        m = self._s.get(EmpresaModel, empresa_id)
+        return _empresa_para_dominio(m) if m else None
+
+    def obter_por_nome(self, nome: str) -> Empresa | None:
+        m = self._s.scalar(select(EmpresaModel).where(EmpresaModel.nome_busca == normalizar(nome)))
+        return _empresa_para_dominio(m) if m else None
+
+    def salvar(self, empresa: Empresa) -> Empresa:
+        m = self._s.get(EmpresaModel, empresa.id) if empresa.id else EmpresaModel()
+        m.nome = empresa.nome
+        m.nome_busca = empresa.nome_busca
+        m.site = empresa.site
+        m.compromisso = empresa.compromisso
+        m.criada_em = empresa.criada_em
+        m.atualizada_em = empresa.atualizada_em
+        self._s.add(m)
+        self._s.flush()
+        empresa.id = m.id
+        return empresa
+
+    def remover(self, empresa_id: int) -> int:
+        vinculadas = self._s.scalar(select(func.count()).where(VagaModel.empresa_id == empresa_id)) or 0
+        # O banco faz o resto: a chave estrangeira tem ON DELETE SET NULL.
+        self._s.execute(delete(EmpresaModel).where(EmpresaModel.id == empresa_id))
+        self._s.expire_all()
+        return vinculadas
+
+    def contar_vagas_ativas(self, empresa_id: int) -> int:
+        return self._s.scalar(
+            select(func.count()).where(VagaModel.empresa_id == empresa_id, VagaModel.ativa.is_(True))
+        ) or 0
 
 
 # ---------------------------------------------------------------- municípios
@@ -253,6 +313,7 @@ class SqlUnidadeDeTrabalho:
     def __init__(self, sessao: Session) -> None:
         self.sessao = sessao
         self.vagas = SqlVagaRepository(sessao)
+        self.empresas = SqlEmpresaRepository(sessao)
         self.municipios = SqlMunicipioRepository(sessao)
         self.estabelecimentos = SqlEstabelecimentoRepository(sessao)
         self.sincronizacoes = SqlSincronizacaoRepository(sessao)

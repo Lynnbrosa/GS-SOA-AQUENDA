@@ -4,14 +4,15 @@ rootdir: C:\Users\User\AppData\Local\Temp\claude\c601c7097be8a45b\30ae1734-33ee-
 configfile: pyproject.toml
 testpaths: tests
 plugins: anyio-4.16.0, respx-0.23.1
-collected 108 items
+collected 125 items
 
-tests\test_api.py ..........................                             [ 24%]
-tests\test_dominio.py ............................................       [ 64%]
+tests\test_api.py ..........................                             [ 20%]
+tests\test_dominio.py ............................................       [ 56%]
+tests\test_empresas.py ...............                                   [ 68%]
 tests\test_fontes.py .....................                               [ 84%]
-tests\test_migracoes.py ...                                              [ 87%]
-tests\test_script_habilitacoes.py ..                                     [ 88%]
-tests\test_sem_rede.py ..                                                [ 90%]
+tests\test_migracoes.py .....                                            [ 88%]
+tests\test_script_habilitacoes.py ..                                     [ 90%]
+tests\test_sem_rede.py ..                                                [ 92%]
 tests\test_sincronizacao.py ..........                                   [100%]
 
-============================ 108 passed in 23.70s =============================
+============================ 125 passed in 28.35s =============================

@@ -34,12 +34,13 @@ def listar_vagas(
     afirmativa: Annotated[bool | None, Query(description="true = só vagas afirmativas.")] = None,
     modalidade: Annotated[Modalidade | None, Query()] = None,
     origem: Annotated[OrigemVaga | None, Query()] = None,
+    empresa_id: Annotated[int | None, Query(ge=1, description="Só as vagas desta empresa (GET /api/empresas).")] = None,
     pagina: Annotated[int, Query(ge=1)] = 1,
     tamanho: Annotated[int, Query(ge=1, le=TAMANHO_MAXIMO_PAGINA)] = 20,
 ) -> PaginaVagas:
     resultado = servico.buscar(FiltroVagas(
         texto=texto, cidade=cidade, uf=uf, afirmativa=afirmativa, modalidade=modalidade,
-        origem=origem, pagina=pagina, tamanho=tamanho,
+        origem=origem, empresa_id=empresa_id, pagina=pagina, tamanho=tamanho,
     ))
     return PaginaVagas(
         itens=[VagaResumo.model_validate(v) for v in resultado.itens],

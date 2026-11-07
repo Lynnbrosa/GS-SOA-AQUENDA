@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Protocol
 
+from app.domain.empresa import Empresa
 from app.domain.enums import Modalidade, NomeFonte, OrigemVaga
 from app.domain.localidades import EstabelecimentoCnes, Municipio
 from app.domain.sincronizacao import Sincronizacao
@@ -18,6 +19,14 @@ class FiltroVagas:
     afirmativa: bool | None = None
     modalidade: Modalidade | None = None
     origem: OrigemVaga | None = None
+    empresa_id: int | None = None
+    pagina: int = 1
+    tamanho: int = 20
+
+
+@dataclass(frozen=True)
+class FiltroEmpresas:
+    nome: str | None = None
     pagina: int = 1
     tamanho: int = 20
 
@@ -28,6 +37,17 @@ class VagaRepository(Protocol):
     def obter_por_chave(self, origem: OrigemVaga, id_externo: str) -> Vaga | None: ...
     def salvar(self, vaga: Vaga) -> Vaga: ...
     def desativar_nao_vistas(self, origem: OrigemVaga, vistas_desde: datetime) -> int: ...
+
+
+class EmpresaRepository(Protocol):
+    def buscar(self, filtro: FiltroEmpresas) -> tuple[list[Empresa], int]: ...
+    def obter(self, empresa_id: int) -> Empresa | None: ...
+    def obter_por_nome(self, nome: str) -> Empresa | None: ...
+    def salvar(self, empresa: Empresa) -> Empresa: ...
+    def remover(self, empresa_id: int) -> int:
+        """Apaga a empresa e devolve quantas vagas ficaram sem empresa (a vaga não é apagada)."""
+        ...
+    def contar_vagas_ativas(self, empresa_id: int) -> int: ...
 
 
 class MunicipioRepository(Protocol):
@@ -51,6 +71,7 @@ class SincronizacaoRepository(Protocol):
 
 class UnidadeDeTrabalho(Protocol):
     vagas: VagaRepository
+    empresas: EmpresaRepository
     municipios: MunicipioRepository
     estabelecimentos: EstabelecimentoRepository
     sincronizacoes: SincronizacaoRepository

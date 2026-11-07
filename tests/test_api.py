@@ -185,8 +185,13 @@ def test_swagger_documenta_todos_os_endpoints(client):
         ("GET", "/api/municipios/{codigo_ibge}/estabelecimentos"),
         ("GET", "/api/cnes/estabelecimentos/{codigo_cnes}"),
         ("GET", "/api/fontes"), ("POST", "/api/fontes/sincronizar"), ("GET", "/health"),
+        ("GET", "/api/empresas"), ("POST", "/api/empresas"), ("GET", "/api/empresas/{empresa_id}"),
+        ("PUT", "/api/empresas/{empresa_id}"), ("DELETE", "/api/empresas/{empresa_id}"),
     }
-    assert {t["name"] for t in esquema["tags"]} == {"Vagas", "Municípios e CNES", "Fontes e saúde"}
+    assert {t["name"] for t in esquema["tags"]} == {"Vagas", "Empresas", "Municípios e CNES", "Fontes e saúde"}
+    criar = esquema["paths"]["/api/empresas"]["post"]
+    assert {"201", "400", "422", "401", "503"} <= set(criar["responses"])
+    assert {"404", "422"} <= set(esquema["paths"]["/api/empresas/{empresa_id}"]["put"]["responses"])
     filtros = {p["name"] for p in esquema["paths"]["/api/vagas"]["get"]["parameters"]}
     assert {"texto", "cidade", "afirmativa", "modalidade"} <= filtros
     assert "404" in esquema["paths"]["/api/vagas/{vaga_id}"]["get"]["responses"]

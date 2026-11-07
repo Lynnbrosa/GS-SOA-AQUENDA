@@ -1,0 +1,22 @@
+# PostgreSQL local, igual para todo o grupo. A senha vem do .env (que não vai para o Git).
+#   cp .env.example .env      # e troque DB_PASSWORD
+#   docker compose up -d
+#   alembic upgrade head      # com DATABASE_URL apontando para este banco
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: aquenda_soa
+      POSTGRES_USER: aquenda
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?defina DB_PASSWORD no .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - dados:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aquenda -d aquenda_soa"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  dados:

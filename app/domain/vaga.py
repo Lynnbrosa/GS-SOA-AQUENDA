@@ -56,6 +56,7 @@ class Vaga:
     salario_max: float | None = None
     ativa: bool = True
     exemplo: bool = False
+    empresa_id: int | None = None
     id: int | None = field(default=None)
 
     @classmethod
@@ -143,6 +144,7 @@ class Vaga:
         for nome in (
             "titulo", "empresa", "descricao", "cidade", "uf", "modalidade", "termo_afirmativo",
             "url_candidatura", "fonte", "publicada_em", "salario_min", "salario_max", "coletada_em", "exemplo",
+            "empresa_id",
         ):
             setattr(self, nome, getattr(nova, nome))
         self.ativa = True

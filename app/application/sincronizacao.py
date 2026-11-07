@@ -5,12 +5,16 @@ Regras que valem para toda fonte:
 - Se a fonte falha, o que já está no banco fica intacto e a falha é registrada.
 - Uma vaga que sumiu da fonte sai da listagem (fica inativa), mas só depois de uma
   coleta boa que trouxe alguma coisa: resposta vazia não apaga o cache.
+- Toda vaga fica ligada à sua empresa (vagas.empresa_id). A empresa é criada na primeira vaga
+  dela e reaproveitada depois, sem diferenciar acento nem maiúscula.
 """
 
 import logging
 from dataclasses import dataclass
 
 from app.application.portas import FonteCnes, FonteDeVagas, FonteIbge, FonteIndisponivel, Relogio
+from app.domain.comum import normalizar
+from app.domain.empresa import Empresa
 from app.domain.enums import NomeFonte, StatusSincronizacao
 from app.domain.localidades import HABILITACOES_PROCESSO_TRANSEXUALIZADOR
 from app.domain.repositorios import UnidadeDeTrabalho
@@ -104,9 +108,22 @@ class SincronizacaoService:
 
     # ------------------------------------------------------------ por tipo de fonte
 
+    def _empresa_id(self, nome: str, inicio, ja_vistas: dict[str, int]) -> int | None:
+        if not Empresa.e_empresa(nome):
+            return None
+        chave = normalizar(nome)
+        if chave not in ja_vistas:
+            empresa = self._uow.empresas.obter_por_nome(nome)
+            if empresa is None:
+                empresa = self._uow.empresas.salvar(Empresa.criar(nome=nome, agora=inicio))
+            ja_vistas[chave] = empresa.id
+        return ja_vistas[chave]
+
     def _sincronizar_vagas(self, fonte: FonteDeVagas, inicio) -> tuple[int, str | None]:
         vagas = fonte.buscar(inicio)
+        empresas: dict[str, int] = {}
         for nova in vagas:
+            nova.empresa_id = self._empresa_id(nova.empresa, inicio, empresas)
             existente = self._uow.vagas.obter_por_chave(*nova.chave)
             if existente:
                 existente.atualizar_com(nova)

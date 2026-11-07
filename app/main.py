@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
 from app.api.erros import registrar_tratadores
-from app.api.routers import fontes, localidades, vagas
+from app.api.routers import empresas, fontes, localidades, vagas
 from app.config import Settings, get_settings
 from app.domain.comum import agora_utc
 from app.infrastructure.db.migracoes import migrar
@@ -34,6 +34,7 @@ Erros seguem o formato ProblemDetails (RFC 7807), como a API C# do grupo.
 
 TAGS = [
     {"name": "Vagas", "description": "Vagas de emprego agregadas. Consumidas pela aba *vagas* do app."},
+    {"name": "Empresas", "description": "Quem anuncia as vagas. CRUD da curadoria; cada vaga aponta para a sua empresa."},
     {"name": "Municípios e CNES", "description": "Onde fazer o processo transexualizador pelo SUS."},
     {"name": "Fontes e saúde", "description": "Estado das fontes externas, sincronização e health check."},
 ]
@@ -69,9 +70,10 @@ def create_app(settings: Settings | None = None, relogio: Callable[[], datetime]
         lifespan=ciclo_de_vida,
         contact={"name": "Grupo Aquenda · FIAP ES 3º ano"},
     )
-    app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
+    app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST", "PUT", "DELETE"], allow_headers=["*"])
     registrar_tratadores(app)
     app.include_router(vagas.router)
+    app.include_router(empresas.router)
     app.include_router(localidades.router)
     app.include_router(fontes.router)
 
@@ -96,7 +98,9 @@ def _openapi_com_erros_reais(app: FastAPI) -> dict:
     for operacoes in esquema.get("paths", {}).values():
         for operacao in operacoes.values():
             respostas = operacao.get("responses", {})
-            if respostas.pop("422", None) is not None:
+            # só o 422 automático da validação do FastAPI sai; o 422 de regra de negócio que a rota documenta fica
+            if respostas.get("422", {}).get("description") == "Validation Error":
+                respostas.pop("422")
                 respostas.setdefault("400", {"description": "Parâmetro inválido"})
             for codigo, resposta in respostas.items():
                 if codigo[0] in "45":

@@ -8,6 +8,7 @@ from fastapi import Depends, Header, HTTPException, Request
 from sqlalchemy.orm import Session
 
 from app.application.consultas import LocalidadeService, VagaService
+from app.application.empresas import EmpresaService
 from app.application.sincronizacao import EstadoFontesService, PrazosCache, SincronizacaoService
 from app.config import Settings
 from app.infrastructure.repositorios.sql import SqlUnidadeDeTrabalho
@@ -34,6 +35,10 @@ Uow = Annotated[SqlUnidadeDeTrabalho, Depends(get_uow)]
 
 def get_vagas(uow: Uow) -> VagaService:
     return VagaService(uow)
+
+
+def get_empresas(request: Request, uow: Uow) -> EmpresaService:
+    return EmpresaService(uow, request.app.state.relogio)
 
 
 def get_localidades(uow: Uow) -> LocalidadeService:

@@ -1,0 +1,27 @@
+$ python -m scripts.conferir_api
+2026-11-06 23:29:48,421 INFO alembic.runtime.migration: Context impl SQLiteImpl.
+2026-11-06 23:29:48,421 INFO alembic.runtime.migration: Will assume non-transactional DDL.
+2026-11-06 23:29:48,438 INFO alembic.runtime.migration: Running upgrade  -> 0001, Estrutura inicial: vagas, municípios, estabelecimentos CNES, habilitações e sincronizações.
+2026-11-06 23:29:48,509 INFO alembic.runtime.migration: Running upgrade 0001 -> 0002, Dados curados pelo grupo: vagas fixas, lista de habilitação 30.02 e um ponto de partida offline.
+2026-11-06 23:29:48,530 INFO alembic.runtime.migration: Running upgrade 0002 -> 0003, Habilitações do processo transexualizador conferidas na Portaria GM/MS nº 2.803/2013.
+2026-11-06 23:29:48,541 INFO alembic.runtime.migration: Running upgrade 0003 -> 0004, Habilitações do processo transexualizador em SP a partir do arquivo oficial do CNES.
+2026-11-06 23:29:48,555 INFO alembic.runtime.migration: Running upgrade 0004 -> 0005, Empresas: evolução do esquema com chave estrangeira.
+# banco: sqlite
+# migrações aplicadas até 0005; chave estrangeira fk_vagas_empresa_id_empresas: vagas.empresa_id -> empresas.id (ON DELETE SET NULL)
+
+GET    /health                                  -> 200  {"status": "ok", "banco": "ok"}
+GET    /api/empresas                            -> 200  {"itens": [{"id": 1, "nome": "Prefeitura de São Paulo", "site": null, "compromisso": null, "vagas_ativas": 1, "criada_em": "2026-11-07T02:29:48.581229Z", "atualizada_em": "2026-11-07T02:29:48.581229Z"}, {"id": 2, "nome": "TransEmpregos", "site": null, "compromisso": null, "vagas_ativas": 1, "criada_
+GET    /api/vagas?afirmativa=true&tamanho=5     -> 200  {"itens": [{"id": 1, "titulo": "Transcidadania · Prefeitura de São Paulo", "empresa": "Prefeitura de São Paulo", "empresa_id": 1, "cidade": "São Paulo", "uf": "SP", "modalidade": "presencial", "afirmativa": true, "termo_afirmativo": "transcidadania", "origem": "curadoria", "publicada_em": null, "url
+POST   /api/empresas                            -> 201  {"id": 3, "nome": "Casa 1 (conferência)", "site": "https://www.casaum.org", "compromisso": "Centro de acolhida e cultura LGBTQIAPN+.", "vagas_ativas": 0, "criada_em": "2026-11-07T02:29:49.005808Z", "atualizada_em": "2026-11-07T02:29:49.005808Z"}
+GET    /api/empresas/3                          -> 200  {"id": 3, "nome": "Casa 1 (conferência)", "site": "https://www.casaum.org", "compromisso": "Centro de acolhida e cultura LGBTQIAPN+.", "vagas_ativas": 0, "criada_em": "2026-11-07T02:29:49.005808Z", "atualizada_em": "2026-11-07T02:29:49.005808Z"}
+PUT    /api/empresas/3                          -> 200  {"id": 3, "nome": "Casa Um (conferência)", "site": null, "compromisso": null, "vagas_ativas": 0, "criada_em": "2026-11-07T02:29:49.005808Z", "atualizada_em": "2026-11-07T02:29:49.023973Z"}
+POST   /api/empresas                            -> 422  {"type": "about:blank", "title": "Regra de negócio", "status": 422, "detail": "Já existe a empresa \"Casa Um (conferência)\" (id 3). Edite essa em vez de criar outra.", "instance": "/api/empresas"}
+POST   /api/empresas                            -> 400  {"type": "about:blank", "title": "Parâmetro inválido", "status": 400, "detail": "Confira os campos em 'erros'.", "instance": "/api/empresas", "erros": [{"campo": "nome", "mensagem": "String should have at least 1 character"}]}
+DELETE /api/empresas/3                          -> 200  {"id": 3, "vagas_desvinculadas": 0}
+GET    /api/empresas/3                          -> 404  {"type": "about:blank", "title": "Não encontrado", "status": 404, "detail": "Empresa 3 não existe.", "instance": "/api/empresas/3"}
+GET    /api/vagas?empresa_id=1                  -> 200  {"itens": [{"id": 1, "titulo": "Transcidadania · Prefeitura de São Paulo", "empresa": "Prefeitura de São Paulo", "empresa_id": 1, "cidade": "São Paulo", "uf": "SP", "modalidade": "presencial", "afirmativa": true, "termo_afirmativo": "transcidadania", "origem": "curadoria", "publicada_em": null, "url
+DELETE /api/empresas/1                          -> 200  {"id": 1, "vagas_desvinculadas": 1}
+GET    /api/vagas/1                             -> 200  {"id": 1, "titulo": "Transcidadania · Prefeitura de São Paulo", "empresa": "Prefeitura de São Paulo", "empresa_id": null, "cidade": "São Paulo", "uf": "SP", "modalidade": "presencial", "afirmativa": true, "termo_afirmativo": "transcidadania", "origem": "curadoria", "publicada_em": null, "url_candida
+POST   /api/empresas                            -> 201  {"id": 3, "nome": "Prefeitura de São Paulo", "site": null, "compromisso": null, "vagas_ativas": 0, "criada_em": "2026-11-07T02:29:49.074054Z", "atualizada_em": "2026-11-07T02:29:49.074054Z"}
+
+ok: CRUD de empresas e chave estrangeira conferidos no sqlite
