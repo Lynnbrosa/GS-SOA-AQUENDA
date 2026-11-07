@@ -140,7 +140,7 @@ app/
   cli.py            sincronização pela linha de comando (timer da VM)
 scripts/            habilitacoes_cnes.py: lê o arquivo oficial de habilitações do CNES (DATASUS)
 alembic/            env.py (lê DATABASE_URL) e versions/
-tests/              106 testes pytest + respostas gravadas em tests/fixtures
+tests/              108 testes pytest + respostas gravadas em tests/fixtures
 ```
 
 ```
@@ -161,7 +161,7 @@ app Expo ──► FastAPI (porta 8000) ──► banco (DATABASE_URL)
 | **Conexão com banco de dados** | 3,0 | `app/infrastructure/db`: engine a partir de `DATABASE_URL` (SQLite com WAL e chaves estrangeiras; PostgreSQL funciona sem mudar código). Tipo `UtcDateTime` grava UTC e devolve com fuso. Repositórios em `repositorios/sql.py` com filtros no SQL (`LIKE` com escape, colunas normalizadas sem acento, paginação, contagem), *upsert* pela chave natural `(origem, id_externo)` e desativação em lote de vagas que saíram da fonte. Unidade de trabalho com um commit por caso de uso e rollback quando a fonte falha. |
 | **Migrações** | 1,5 | Alembic em `alembic/`. `0001` cria as 5 tabelas com índices e restrições únicas. `0002` é uma **migração de dados**: curadoria (Transcidadania, TransEmpregos), lista de habilitação e retrato do CNES. `0003` e `0004` **corrigem dados** já publicados: primeiro pela Portaria 2.803/2013, depois pelo arquivo oficial de habilitações do CNES (9 habilitações em 6 serviços de SP, com a portaria de cada uma). Todas com `downgrade` que desfaz. `render_as_batch` para o SQLite. Testes sobem e descem as migrações e comparam com os modelos (`alembic check` também roda no CI). |
 | **Documentação automática** | 1,5 | Swagger em `/docs` e ReDoc em `/redoc`, com descrição do serviço, 3 grupos de rotas, resumo e descrição por endpoint, exemplos nos parâmetros, descrição dos campos nos schemas e respostas de erro documentadas como `application/problem+json` (o 422 padrão do FastAPI foi trocado pelo 400 que a API realmente devolve). |
-| **Testes automatizados** | 1,0 | 106 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha. CI no GitHub Actions. |
+| **Testes automatizados** | 1,0 | 108 testes pytest: domínio (regras), adaptadores HTTP contra respostas gravadas (incluindo 37 vagas reais da Gupy e 50 da Adzuna), sincronização ponta a ponta (cache, falha, fonte vazia, vaga que saiu do ar, atualização sem duplicar), contrato HTTP (filtros, paginação, erros, chave de operador, Swagger) e migrações. A rede fica bloqueada no `conftest.py`: se um teste tentar a internet, falha (localhost segue liberado, porque o asyncio do Windows precisa dele). CI no GitHub Actions. |
 
 ## Fontes, cache e o que acontece quando algo cai
 
@@ -234,6 +234,8 @@ As respostas usadas nos testes estão em [`tests/fixtures`](tests/fixtures), com
 Fontes: [CNES, dados abertos do Ministério da Saúde](https://apidadosabertos.saude.gov.br) · [IBGE Localidades](https://servicodados.ibge.gov.br/api/docs/localidades) · [Adzuna API](https://developer.adzuna.com) · [Prefeitura SP, Transcidadania](https://prefeitura.sp.gov.br/web/lgbti/w/menu/150965) · [TransEmpregos](https://www.transempregos.org) · [Portaria GM/MS nº 2.803/2013](https://bvsms.saude.gov.br/bvs/saudelegis/gm/2013/prt2803_19_11_2013.html)
 
 ## Evidências
+
+Os 108 testes passando no Windows e no Linux: [`docs/evidencias/pytest.txt`](docs/evidencias/pytest.txt).
 
 Swagger com todos os endpoints:
 

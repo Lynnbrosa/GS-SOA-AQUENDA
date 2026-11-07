@@ -33,11 +33,26 @@ def carregar(nome: str):
 def sem_rede(monkeypatch):
     """Se algum teste escapar do respx e tentar a internet, falha na hora."""
 
-    def bloquear(*args, **kwargs):
+    # localhost continua liberado: no Windows o loop do asyncio (e o TestClient) conversa consigo mesmo
+    # por um socketpair em 127.0.0.1. Sem isso, todo teste com TestClient quebra no Windows.
+    locais = {"127.0.0.1", "::1", "localhost"}
+    connect_original = socket.socket.connect
+    create_connection_original = socket.create_connection
+
+    def eh_local(endereco) -> bool:
+        return isinstance(endereco, tuple) and str(endereco[0]) in locais
+
+    def bloquear():
         raise RuntimeError("Teste tentou acessar a rede. Use uma resposta gravada em tests/fixtures.")
 
-    monkeypatch.setattr(socket, "create_connection", bloquear)
-    monkeypatch.setattr(socket.socket, "connect", bloquear)
+    def connect(self, endereco):
+        return connect_original(self, endereco) if eh_local(endereco) else bloquear()
+
+    def create_connection(endereco, *args, **kwargs):
+        return create_connection_original(endereco, *args, **kwargs) if eh_local(endereco) else bloquear()
+
+    monkeypatch.setattr(socket, "create_connection", create_connection)
+    monkeypatch.setattr(socket.socket, "connect", connect)
 
 
 class RelogioDeTeste:

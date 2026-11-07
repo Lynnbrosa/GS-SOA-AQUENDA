@@ -1,0 +1,17 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\User\AppData\Local\Temp\claude\c601c7097be8a45b\30ae1734-33ee-4f18-9e98-3fc5e7a61696\scratchpad\soa
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.16.0, respx-0.23.1
+collected 108 items
+
+tests\test_api.py ..........................                             [ 24%]
+tests\test_dominio.py ............................................       [ 64%]
+tests\test_fontes.py .....................                               [ 84%]
+tests\test_migracoes.py ...                                              [ 87%]
+tests\test_script_habilitacoes.py ..                                     [ 88%]
+tests\test_sem_rede.py ..                                                [ 90%]
+tests\test_sincronizacao.py ..........                                   [100%]
+
+============================ 108 passed in 23.70s =============================
